@@ -1,13 +1,15 @@
-module com.example.warehouse {
+open module Warehouse {
+    requires com.google.api.apicommon;
+    requires com.google.auth.oauth2;
+    requires firebase.admin;
+    requires google.cloud.firestore;
     requires javafx.controls;
     requires javafx.fxml;
-    requires firebase.admin;
-    requires com.google.auth.oauth2;
-    requires com.google.api.apicommon;
-    requires com.google.common;
+    requires javafx.graphics;
+    requires com.google.auth;
     requires java.sql;
+    requires com.google.api.services.storage;
+    requires google.cloud.core;
 
-
-    opens com.example.warehouse to javafx.fxml;
-    exports com.example.warehouse;
+//    exports com.google.cloud to firebase.admin;
 }

@@ -1,29 +1,13 @@
 {
-  "project_info": {
-    "project_number": "1016595619019",
-    "project_id": "warehouse-b829d",
-    "storage_bucket": "warehouse-b829d.firebasestorage.app"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1016595619019:android:89ad09aad4b5abc608cf4e",
-        "android_client_info": {
-          "package_name": "com.example.warehouse"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAxzZGzjO4EgjK2wyX49QGK5E-ODoa9wbw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
+  "type": "service_account",
+  "project_id": "warehouse-b829d",
+  "private_key_id": "ac760a3f9fe43ca9be88a025dde8d2d32fa6a8df",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDg82KxEN2id4n3\n69TpBGs6awkL1ZzmKdK8/fUKSCgc4pcPFeESM509N0zcxli6rNNSN2TBrbLantfI\nUjDiv7sRLJ3azNVqizNGMw42NLNRGRQp37qGhYWjb8puB1nSrhMKOu2sBMhrPjcw\ngH+avTUcFQP2WUapIuvbKRnsAxmmTL6fEwIw4T2johTXhLMvuPqZnTwT4wkHNo2G\nJWc4Au9ZaXEkI59aQuHvGQmgZ4TFE48tbxdp7QCjtaN2sd7e0AHbQwaUjFfapSPL\nMwZCziyXInxKRKwGIXVXzz33Nw7rXOicjQcaucIfI+bIvf+uzzCJQ8u1IgwJJ9Rr\n8CvoB48LAgMBAAECggEACKrQ6DS7Q6G1PoG8ViC/A5bC2AYcGpvwlvHLy2672yZk\nUH/RT42O42dfnhvR4ZoYbsK/oDJRyLv1mjxOseM5u/NyInoMKpWjx+Rsl/qFnxjA\nDQbCb4TkK7l6R+YfRk96taike6+X74D9gZrnM05vbTORM0soaScDhhH9yQdIN7fS\nTotkLs6PTzcm31tc9U5pHuweJQteo3sthGNnEyS+ySF2hzNjcMjbm9FISbPHnoV9\n3ZRWMLxCvzXOgt4CPoqvut9gEJtjUi2xhmcR62ymDl41hD/nUoFSi7a+5S/yGhjk\n1g4ZkvVFQPvjLdALa4o0Ad/kMQFaNrROASfVG+LnwQKBgQD82mPI0suBUsgxjoU8\nNUPGdf0k5EGb49CNFXexKZ9yRk1NrWx54nJRavMD/S0kT3moYBUO/I7ndIHIdgGg\nHp3lfHDMCCZY1b3HuavwniiK4bb7Ixo5C3QW4mYbBJNNyGC8gvmMd3dxjtfVy+Th\nsitxwL28OGvOOc9oJkdxW+XiWwKBgQDjwBi49AJqjrE2rpS79nGrF/zCBTCKs1V/\nzAgV3OM20YZJM1a/CE9GNrzeBX5qluwGzDotZtVaakkmvs4kM1aruUbbluKLk/80\nAG9rLoN2Xzf4IOqZfD7HaFNPvia+eU5sDex2UUeQp/jqt+WtFv30CNrgYK/JghXG\n8IPYERNFEQKBgQDpj+2mXpjez5HevPBzihwd4XVBM5srHYfSGqdiPblr/GaBvxU5\njSPd8zWhVKbzKHqPPpmVK1PxltwfSGn99uoRRh6HSWvqmR1htS+O5vk6OH8mgelC\nEkNctCpvAI30xogc+br7tordmX3jniDBHiwlOk3I5DEo4Jumb92EZ8f0iwKBgA0r\nuMJJajJbWig9ZGCSWfR5CKb3wdzjjhg75mPNSF6NM2TcUTHu+xamZ7m3O55SaAfk\nm6Cwh7oY124kLqutRF/d8RkV2rgTsPiC5e6e2/9mdkglLyv9IWxKvjaoWnk9bqmV\nDI2zGZ5l+GEqjV+7KqiIMpAzRzcyDKxakGVYZ3LhAoGBAK2X4inZAfnJY1sSonEH\ndqSpOUfwsGGMj2mlG8hwJjz8firIgfGYitq9Fa5nQ/kPWMI34uMpxu1M8y6DCJgz\n3GwOTwuEoqNL163+r3unqnyjxkPm1UxiMlAyhYLi6qOr+3cjuFeFZv6jBfBOeIut\n7gd7IVjOTKmlRXKg7pUJWlvk\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-80d3d@warehouse-b829d.iam.gserviceaccount.com",
+  "client_id": "106455200382248798525",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-80d3d%40warehouse-b829d.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
 }
