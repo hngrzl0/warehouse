@@ -28,7 +28,7 @@ public class BookForumScreen {
     private TextField countField;
     @FXML
     private TextField descriptionField;
-    @FXMLß
+    @FXML
     private TextField pictureUrlField;
     @FXML
     private ChoiceBox<String> categoryField;
