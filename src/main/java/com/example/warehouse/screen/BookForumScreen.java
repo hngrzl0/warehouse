@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -39,6 +40,8 @@ public class BookForumScreen {
     private TextField pictureUrlField;
     @FXML
     private ChoiceBox<String> categoryField;
+    @FXML
+    private Button logoutButton;
 
     private BookForumScreenController controller;
     private FirestoreService firestoreService;
@@ -144,6 +147,30 @@ public class BookForumScreen {
             stage.show(); // Show the new scene
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onLogoutButtonClick(){
+        try {
+            // Load the login screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_login.fxml"));
+            Parent loginScreen = loader.load();
+
+            // Get the current stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+
+            // Set the new scene to the login screen
+            Scene loginScene = new Scene(loginScreen);
+            currentStage.setScene(loginScene);
+
+            // Show the new scene
+            currentStage.show();
+
+            System.out.println("User logged out and redirected to the login screen.");
+        } catch (IOException e) {
+            System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
             e.printStackTrace();
         }
     }

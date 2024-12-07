@@ -34,6 +34,8 @@ public class ControllerHome {
     @FXML
     private ComboBox<String> genreComboBox; // Reference to the genre combo box
 
+    @FXML
+    private Button logoutButton;
     private final FirestoreService firestoreService;
     private ObservableList<Book> allBooks;
 
@@ -140,6 +142,30 @@ public class ControllerHome {
             stage.show(); // Show the new scene
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onLogoutButtonClick(){
+        try {
+            // Load the login screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_login.fxml"));
+            Parent loginScreen = loader.load();
+
+            // Get the current stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+
+            // Set the new scene to the login screen
+            Scene loginScene = new Scene(loginScreen);
+            currentStage.setScene(loginScene);
+
+            // Show the new scene
+            currentStage.show();
+
+            System.out.println("User logged out and redirected to the login screen.");
+        } catch (IOException e) {
+            System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
             e.printStackTrace();
         }
     }

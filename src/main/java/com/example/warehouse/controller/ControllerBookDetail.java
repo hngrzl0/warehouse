@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +26,9 @@ public class ControllerBookDetail {
     @FXML
     private Label bookDescription;       // Label for book description
     @FXML
-    private Text bookPrice;              // Text for book price
+    private Text bookPrice;
+    @FXML
+    private Button logoutButton;// Text for book price
     @FXML
     private HBox addToCartButton;        // Button for adding book to the cart
 
@@ -134,6 +137,30 @@ public class ControllerBookDetail {
             stage.show(); // Show the new scene
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onLogoutButtonClick(){
+        try {
+            // Load the login screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_login.fxml"));
+            Parent loginScreen = loader.load();
+
+            // Get the current stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+
+            // Set the new scene to the login screen
+            Scene loginScene = new Scene(loginScreen);
+            currentStage.setScene(loginScene);
+
+            // Show the new scene
+            currentStage.show();
+
+            System.out.println("User logged out and redirected to the login screen.");
+        } catch (IOException e) {
+            System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
             e.printStackTrace();
         }
     }

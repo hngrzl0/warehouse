@@ -34,9 +34,9 @@ public class Application extends javafx.application.Application {
         // Initialize Firebase before setting up the UI
         FirebaseConfig.initializeFirebase();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("layout/screen_forum.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("layout/screen_login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Book forum");
+        stage.setTitle("WareHouse Application");
         stage.setScene(scene);
         stage.show();
     }

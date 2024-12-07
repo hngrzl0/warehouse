@@ -36,6 +36,7 @@ public class LoginScreen {
 
     @FXML
     private Button loginButton;
+
     private LoginScreenController controller;
 
     /**
@@ -79,6 +80,7 @@ public class LoginScreen {
         }
     }
 
+
     /**
      * Displays an alert with the given type, title, and message.
      *
@@ -115,6 +117,15 @@ public class LoginScreen {
      * This method loads the Home Screen FXML layout and updates the current stage scene.
      */
     public void navigateToHomeScreen(){
-        //navigate to home logic
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(Application.class.getResource("layout/screen_home.fxml")));
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            System.out.println("Navigating to Home Page...");
+        } catch (Exception e) {
+            System.err.println("Error occurred while navigating to Book Forum Page: " + e.getMessage());
+
+        }
     }
 }
