@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Label?>
 <BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.ControllerHome">
    <left>
       <VBox prefHeight="1080.0" prefWidth="258.0" BorderPane.alignment="CENTER">
@@ -60,7 +61,7 @@
                               </Text>
                            </children>
                         </HBox>
-                        <HBox onMouseClicked="#handleForumMenu" spacing="7.0">
+                        <HBox fx:id="addBookMenu" onMouseClicked="#handleForumMenu" spacing="7.0">
                            <children>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -156,7 +157,7 @@
                                              <Insets left="8.0" />
                                           </HBox.margin>
                                        </ImageView>
-                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User">
+                                       <Text fx:id="loggedUser" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
                                           <HBox.margin>
                                              <Insets right="8.0" />
                                           </HBox.margin>

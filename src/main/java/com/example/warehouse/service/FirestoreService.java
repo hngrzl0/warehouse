@@ -1,6 +1,7 @@
 package com.example.warehouse.service;
 
 import com.example.warehouse.model.User;
+import com.example.warehouse.model.UserSession;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.example.warehouse.model.Book;
@@ -195,7 +196,12 @@ public class FirestoreService {
         if (!querySnapshot.get().isEmpty()) {
             // Convert Firestore document to User object
             QueryDocumentSnapshot document = querySnapshot.get().getDocuments().get(0);
-            return document.toObject(User.class);
+            User authenticatedUser = document.toObject(User.class);
+
+            // Store the user in the global session
+            UserSession.getInstance().setUser(authenticatedUser);
+
+            return authenticatedUser;
         } else {
             return null;
         }
