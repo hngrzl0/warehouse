@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.screen.LoginScreen">
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="929.46" style="-fx-background-color: F38B40;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="488.0" fitWidth="488.0" layoutX="207.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img_login.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <VBox prefHeight="604.0" prefWidth="402.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="75.0" top="220.0" />
+               </VBox.margin></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PLease log in to your account">
+               <font>
+                  <Font size="13.85" />
+               </font>
+               <VBox.margin>
+                  <Insets left="75.0" />
+               </VBox.margin></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+               <font>
+                  <Font name="System Bold" size="13.85" />
+               </font>
+               <VBox.margin>
+                  <Insets left="75.0" top="20.0" />
+               </VBox.margin></Text>
+            <TextField fx:id="usernameField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="36.71" prefWidth="252.1" style="-fx-background-radius: 8.31; -fx-border-radius: 8.31; -fx-border-color: DEDEDE;">
+               <VBox.margin>
+                  <Insets left="75.0" />
+               </VBox.margin></TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <VBox.margin>
+                  <Insets left="75.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.85" />
+               </font></Text>
+            <PasswordField fx:id="passwordField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="36.71" prefWidth="252.1" style="-fx-border-color: DEDEDE; -fx-background-radius: 8.31; -fx-border-radius: 8.31;">
+               <VBox.margin>
+                  <Insets left="75.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Button mnemonicParsing="false" style="-fx-background-color: white;" text="Forget password" textFill="#f38b40">
+               <font>
+                  <Font size="13.85" />
+               </font>
+               <VBox.margin>
+                  <Insets left="215.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="38.09" prefWidth="250.0" style="-fx-background-color: F38B40; -fx-border-radius: 8.31; -fx-background-radius: 8.31;" text="Log in" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.85" />
+               </font>
+               <VBox.margin>
+                  <Insets left="75.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.09" prefWidth="250.0" style="-fx-background-color: transparant; -fx-border-radius: 8.31; -fx-background-radius: 8.31;" text="Register" textFill="#878787">
+               <font>
+                  <Font name="System Bold" size="13.85" />
+               </font>
+               <VBox.margin>
+                  <Insets left="75.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

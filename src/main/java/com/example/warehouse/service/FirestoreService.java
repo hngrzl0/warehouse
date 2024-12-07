@@ -1,10 +1,8 @@
 package com.example.warehouse.service;
 
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.WriteResult;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.example.warehouse.model.User;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
 import com.example.warehouse.model.Book;
 import com.google.firebase.cloud.FirestoreClient;
 
@@ -15,15 +13,38 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Service class for interacting with the Firestore database.
+ * <p>
+ * This class provides methods to perform CRUD operations on the Firestore database
+ * for both {@link Book} and {@link User} objects. It handles Firestore interactions
+ * such as creating, reading, updating, and deleting records, as well as authenticating users.
+ * </p>
+ *
+ * <p><b>Usage:</b> Instantiate this class and call its methods to interact with Firestore.</p>
+ *
+ * @author Khongorzul, Margad
+ * @version 1.0
+ * @since 2024-11-25
+ */
 public class FirestoreService {
 
     private final Firestore db;
 
+    /**
+     * Initializes a new instance of {@code FirestoreService} and connects to Firestore.
+     */
     public FirestoreService() {
         this.db = FirestoreClient.getFirestore();
     }
 
-    // Create Book
+    /**
+     * Creates a new {@link Book} record in Firestore.
+     *
+     * @param book The {@code Book} object to be added.
+     * @throws InterruptedException If the thread is interrupted while waiting.
+     * @throws ExecutionException   If the computation threw an exception.
+     */
     public void createBook(Book book) throws InterruptedException, ExecutionException {
         CollectionReference books = db.collection("book");
 
@@ -39,12 +60,20 @@ public class FirestoreService {
         bookData.put("pictureUrl", book.getPictureUrl());
         bookData.put("category", book.getCategory());
 
+
         // Add the book document to Firestore
         DocumentReference result = books.add(bookData).get();  // Blocking call
         System.out.println("Book added with ID: " + result.getId());
     }
 
-    // Read Book by ID
+    /**
+     * Retrieves a {@link Book} by its unique ID.
+     *
+     * @param bookId The ID of the book to retrieve.
+     * @return A {@code Book} object if found; otherwise {@code null}.
+     * @throws InterruptedException If the thread is interrupted while waiting.
+     * @throws ExecutionException   If the computation threw an exception.
+     */
     public Book getBookById(String bookId) throws InterruptedException, ExecutionException {
         DocumentReference bookRef = db.collection("book").document(bookId);
         QueryDocumentSnapshot document = (QueryDocumentSnapshot) bookRef.get().get();
@@ -72,7 +101,13 @@ public class FirestoreService {
         }
     }
 
-    //Read all book
+    /**
+     * Retrieves all {@link Book} records from Firestore.
+     *
+     * @return A list of {@code Book} objects.
+     * @throws InterruptedException If the thread is interrupted while waiting.
+     * @throws ExecutionException   If the computation threw an exception.
+     */
     public List<Book> getAllBooks() throws InterruptedException, ExecutionException {
         CollectionReference booksCollection = db.collection("book");
         List<Book> booksList = new ArrayList<>();
@@ -102,7 +137,14 @@ public class FirestoreService {
         return booksList;
     }
 
-    // Update Book
+    /**
+     * Updates an existing {@link Book} record in Firestore.
+     *
+     * @param bookId      The ID of the book to update.
+     * @param updatedBook A {@code Book} object containing updated information.
+     * @throws InterruptedException If the thread is interrupted while waiting.
+     * @throws ExecutionException   If the computation threw an exception.
+     */
     public void updateBook(String bookId, Book updatedBook) throws InterruptedException, ExecutionException {
         DocumentReference bookRef = db.collection("book").document(bookId);
 
@@ -123,10 +165,39 @@ public class FirestoreService {
         System.out.println("Updated book at " + result.getUpdateTime());
     }
 
-    // Delete Book
+    /**
+     * Deletes a {@link Book} record from Firestore.
+     *
+     * @param bookId The ID of the book to delete.
+     * @throws InterruptedException If the thread is interrupted while waiting.
+     * @throws ExecutionException   If the computation threw an exception.
+     */
     public void deleteBook(String bookId) throws InterruptedException, ExecutionException {
         DocumentReference bookRef = db.collection("book").document(bookId);
         WriteResult result = bookRef.delete().get();
         System.out.println("Deleted book at " + result.getUpdateTime());
+    }
+
+    /**
+     * Authenticates a {@link User} using their username and password.
+     *
+     * @param username The username of the user.
+     * @param password The password of the user.
+     * @return A {@code User} object if authentication is successful; otherwise {@code null}.
+     * @throws InterruptedException If the thread is interrupted while waiting.
+     * @throws ExecutionException   If the computation threw an exception.
+     */
+    public User authenticateUser(String username, String password) throws InterruptedException, ExecutionException {
+        CollectionReference usersCollection = db.collection("user");
+        Query query = usersCollection.whereEqualTo("username", username).whereEqualTo("password", password);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        if (!querySnapshot.get().isEmpty()) {
+            // Convert Firestore document to User object
+            QueryDocumentSnapshot document = querySnapshot.get().getDocuments().get(0);
+            return document.toObject(User.class);
+        } else {
+            return null;
+        }
     }
 }
