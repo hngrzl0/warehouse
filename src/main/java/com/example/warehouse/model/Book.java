@@ -5,7 +5,7 @@ import java.util.Date;
 public class Book {
     private String title;
     private String author;
-    private Date publishedYear;
+    private String publishedYear;
     private String isbn;
     private double price;
     private int count;
@@ -14,7 +14,7 @@ public class Book {
     private String category;
 
     // Constructor
-    public Book(String title, String author, Date publishedYear, String isbn, double price, int count, String description, String pictureUrl, String category) {
+    public Book(String title, String author, String publishedYear, String isbn, double price, int count, String description, String pictureUrl, String category) {
         this.title = title;
         this.author = author;
         this.publishedYear = publishedYear;
@@ -33,8 +33,8 @@ public class Book {
     public String getAuthor() { return author; }
     public void setAuthor(String author) { this.author = author; }
 
-    public Date getPublishedYear() { return publishedYear; }
-    public void setPublishedYear(Date publishedYear) { this.publishedYear = publishedYear; }
+    public String getPublishedYear() { return publishedYear; }
+    public void setPublishedYear(Date publishedYear) { this.publishedYear = String.valueOf(publishedYear); }
 
     public String getIsbn() { return isbn; }
     public void setIsbn(String isbn) { this.isbn = isbn; }

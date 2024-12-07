@@ -54,7 +54,7 @@ public class BookForumScreen {
             Book book = new Book(
                     titleField.getText(),
                     authorField.getText(),
-                    java.sql.Date.valueOf(publishedDatePicker.getValue()),  // Convert LocalDate to Date
+                    publishedDatePicker.getValue().toString(),  // Convert LocalDate to Date
                     isbnField.getText(),
                     Double.parseDouble(priceField.getText()),
                     Integer.parseInt(countField.getText()),
