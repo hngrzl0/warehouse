@@ -6,6 +6,7 @@ import com.google.cloud.firestore.*;
 import com.example.warehouse.model.Book;
 import com.google.firebase.cloud.FirestoreClient;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +60,7 @@ public class FirestoreService {
         bookData.put("pictureUrl", book.getPictureUrl());
         bookData.put("category", book.getCategory());
 
+
         // Add the book document to Firestore
         DocumentReference result = books.add(bookData).get();  // Blocking call
         System.out.println("Book added with ID: " + result.getId());
@@ -88,7 +90,9 @@ public class FirestoreService {
                     ((Long) bookData.get("count")).intValue(),
                     (String) bookData.get("description"),
                     (String) bookData.get("pictureUrl"),
-                    (String) bookData.get("category")
+                    (String) bookData.get("category"),
+                    (String) document.getId()
+
             );
             return book;
         } else {
@@ -123,7 +127,9 @@ public class FirestoreService {
                     ((Long) bookData.get("count")).intValue(),
                     (String) bookData.get("description"),
                     (String) bookData.get("pictureUrl"),
-                    (String) bookData.get("category")
+                    (String) bookData.get("category"),
+                    (String) document.getId()
+
             );
             booksList.add(book);
         }

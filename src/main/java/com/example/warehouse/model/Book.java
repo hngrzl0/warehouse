@@ -12,6 +12,7 @@ public class Book {
     private String description;
     private String pictureUrl;
     private String category;
+    private String id;
 
     // Constructor
     public Book(String title, String author, String publishedYear, String isbn, double price, int count, String description, String pictureUrl, String category) {
@@ -24,6 +25,19 @@ public class Book {
         this.description = description;
         this.pictureUrl = pictureUrl;
         this.category = category;
+    }
+
+    public Book(String title, String author, String publishedYear, String isbn, double price, int count, String description, String pictureUrl, String category, String id) {
+        this.title = title;
+        this.author = author;
+        this.publishedYear = publishedYear;
+        this.isbn = isbn;
+        this.price = price;
+        this.count = count;
+        this.description = description;
+        this.pictureUrl = pictureUrl;
+        this.category = category;
+        this.id = id;
     }
 
     // Getters and setters
@@ -53,4 +67,7 @@ public class Book {
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
+
+    public String getId() { return this.id; }
+    public void setId(String id){ this.id = id; }
 }
