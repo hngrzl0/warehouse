@@ -193,4 +193,21 @@ public class ControllerHome {
             e.printStackTrace();
         }
     }
+
+    public void handleGoToCart(MouseEvent mouseEvent) {
+        try {
+            // Load the next screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_cart.fxml"));
+            Parent newRoot = loader.load();
+
+            // Get the current stage and set the new scene
+            Stage stage = (Stage) books.getScene().getWindow(); // Get the current stage
+            Scene scene = new Scene(newRoot);
+            stage.setScene(scene); // Set the new scene
+            stage.show(); // Show the new scene
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

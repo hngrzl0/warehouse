@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER_LEFT" spacing="20" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.BookTileController">
+    <ImageView fx:id="bookImage" fitHeight="75" fitWidth="50">
+      <image>
+         <Image url="@../assets/book1.png" />
+      </image></ImageView>
+    <VBox spacing="5">
+        <Label fx:id="bookTitle" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Book Title" />
+        <Label fx:id="bookPrice" style="-fx-font-size: 14px;" text="Price" />
+    </VBox>
+    <Region HBox.hgrow="ALWAYS" />
+    <HBox alignment="CENTER" spacing="10">
+        <Button fx:id="decrementButton" text="-" />
+        <Label fx:id="quantityLabel" style="-fx-font-size: 14px;" text="1" />
+        <Button fx:id="incrementButton" text="+" />
+    </HBox>
+    <Label fx:id="totalPriceLabel" style="-fx-font-size: 14px;" text="Total Price" />
+</HBox>
