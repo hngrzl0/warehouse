@@ -1,8 +1,8 @@
-package com.example.warehouse;
+package com.example.warehouse.screen;
 
+import com.example.warehouse.controller.BookForumScreenController;
 import com.example.warehouse.model.Book;
 import com.example.warehouse.service.FirestoreService;
-import com.google.cloud.firestore.Firestore;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;

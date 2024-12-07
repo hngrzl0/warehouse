@@ -8,7 +8,9 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.example.warehouse.model.Book;
 import com.google.firebase.cloud.FirestoreClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -22,7 +24,7 @@ public class FirestoreService {
 
     // Create Book
     public void createBook(Book book) throws InterruptedException, ExecutionException {
-        CollectionReference books = db.collection("books");
+        CollectionReference books = db.collection("book");
 
         // Convert Book object to Map for Firestore
         Map<String, Object> bookData = new HashMap<>();
@@ -43,7 +45,7 @@ public class FirestoreService {
 
     // Read Book by ID
     public Book getBookById(String bookId) throws InterruptedException, ExecutionException {
-        DocumentReference bookRef = db.collection("books").document(bookId);
+        DocumentReference bookRef = db.collection("book").document(bookId);
         QueryDocumentSnapshot document = (QueryDocumentSnapshot) bookRef.get().get();
 
         if (document.exists()) {
@@ -67,9 +69,37 @@ public class FirestoreService {
         }
     }
 
+    //Read all book
+    public List<Book> getAllBooks() throws InterruptedException, ExecutionException {
+        CollectionReference booksCollection = db.collection("book");
+        List<Book> booksList = new ArrayList<>();
+
+        // Get all books from the collection
+        Iterable<QueryDocumentSnapshot> documents = booksCollection.get().get().getDocuments();
+
+        for (QueryDocumentSnapshot document : documents) {
+            // Convert Firestore document to Book object
+            Map<String, Object> bookData = document.getData();
+            Book book = new Book(
+                    (String) bookData.get("title"),
+                    (String) bookData.get("author"),
+                    (java.util.Date) bookData.get("publishedYear"),
+                    (String) bookData.get("isbn"),
+                    (Double) bookData.get("price"),
+                    ((Long) bookData.get("count")).intValue(),
+                    (String) bookData.get("description"),
+                    (String) bookData.get("pictureUrl"),
+                    (String) bookData.get("category")
+            );
+            booksList.add(book);
+        }
+
+        return booksList;
+    }
+
     // Update Book
     public void updateBook(String bookId, Book updatedBook) throws InterruptedException, ExecutionException {
-        DocumentReference bookRef = db.collection("books").document(bookId);
+        DocumentReference bookRef = db.collection("book").document(bookId);
 
         // Convert updated Book object to Map for Firestore
         Map<String, Object> updatedData = new HashMap<>();
@@ -90,7 +120,7 @@ public class FirestoreService {
 
     // Delete Book
     public void deleteBook(String bookId) throws InterruptedException, ExecutionException {
-        DocumentReference bookRef = db.collection("books").document(bookId);
+        DocumentReference bookRef = db.collection("book").document(bookId);
         WriteResult result = bookRef.delete().get();
         System.out.println("Deleted book at " + result.getUpdateTime());
     }
