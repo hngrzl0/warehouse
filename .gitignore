@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+src/main/resources/google-services.json
+google-services.json
