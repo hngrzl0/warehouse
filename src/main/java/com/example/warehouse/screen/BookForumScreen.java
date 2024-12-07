@@ -28,7 +28,7 @@ public class BookForumScreen {
     private TextField countField;
     @FXML
     private TextField descriptionField;
-    @FXML
+    @FXMLß
     private TextField pictureUrlField;
     @FXML
     private ChoiceBox<String> categoryField;
@@ -54,7 +54,7 @@ public class BookForumScreen {
             Book book = new Book(
                     titleField.getText(),
                     authorField.getText(),
-                    java.sql.Date.valueOf(publishedDatePicker.getValue()),  // Convert LocalDate to Date
+                    publishedDatePicker.getValue().toString(),  // Convert LocalDate to Date
                     isbnField.getText(),
                     Double.parseDouble(priceField.getText()),
                     Integer.parseInt(countField.getText()),

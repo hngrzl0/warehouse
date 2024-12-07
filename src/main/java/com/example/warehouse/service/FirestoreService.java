@@ -54,7 +54,7 @@ public class FirestoreService {
             Book book = new Book(
                     (String) bookData.get("title"),
                     (String) bookData.get("author"),
-                    (java.util.Date) bookData.get("publishedYear"),
+                    (String) bookData.get("publishedYear"),
                     (String) bookData.get("isbn"),
                     (Double) bookData.get("price"),
                     ((Long) bookData.get("count")).intValue(),
@@ -83,7 +83,7 @@ public class FirestoreService {
             Book book = new Book(
                     (String) bookData.get("title"),
                     (String) bookData.get("author"),
-                    (java.util.Date) bookData.get("publishedYear"),
+                    (String) bookData.get("publishedYear"),
                     (String) bookData.get("isbn"),
                     (Double) bookData.get("price"),
                     ((Long) bookData.get("count")).intValue(),
