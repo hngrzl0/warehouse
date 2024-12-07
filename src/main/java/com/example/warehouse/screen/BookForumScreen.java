@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.concurrent.Task;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class BookForumScreen {
 
@@ -61,6 +62,7 @@ public class BookForumScreen {
                     descriptionField.getText(),
                     pictureUrlField.getText(),
                     categoryField.getValue()
+
             );
 
 //            Book book = new Book(

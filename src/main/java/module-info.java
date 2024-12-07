@@ -10,6 +10,7 @@ open module Warehouse {
     requires java.sql;
     requires com.google.api.services.storage;
     requires google.cloud.core;
+    requires java.desktop;
 
 //    exports com.google.cloud to firebase.admin;
 }

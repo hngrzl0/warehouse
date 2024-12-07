@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="317.0" prefWidth="178.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: white; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="317.0" fx:id="bookCard" onMouseClicked="#handleBookClick" prefWidth="178.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: white; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.ControllerBookCard">
 
     <!-- Book Image -->
     <ImageView fx:id="bookImage" fitHeight="150.0" fitWidth="119.0" layoutX="29.0" layoutY="33.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="19.0" />

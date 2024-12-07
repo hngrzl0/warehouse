@@ -61,7 +61,9 @@ public class FirestoreService {
                     ((Long) bookData.get("count")).intValue(),
                     (String) bookData.get("description"),
                     (String) bookData.get("pictureUrl"),
-                    (String) bookData.get("category")
+                    (String) bookData.get("category"),
+                    (String) document.getId()
+
             );
             return book;
         } else {
@@ -90,7 +92,9 @@ public class FirestoreService {
                     ((Long) bookData.get("count")).intValue(),
                     (String) bookData.get("description"),
                     (String) bookData.get("pictureUrl"),
-                    (String) bookData.get("category")
+                    (String) bookData.get("category"),
+                    (String) document.getId()
+
             );
             booksList.add(book);
         }
