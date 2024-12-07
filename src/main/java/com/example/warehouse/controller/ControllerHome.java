@@ -1,6 +1,8 @@
 package com.example.warehouse.controller;
 
 import com.example.warehouse.model.Book;
+import com.example.warehouse.model.User;
+import com.example.warehouse.model.UserSession;
 import com.example.warehouse.service.FirestoreService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,11 +18,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -32,7 +37,14 @@ public class ControllerHome {
     private TextField searchField; // Reference to the search field
 
     @FXML
+    private Text loggedUser;
+
+    @FXML
+    private HBox addBookMenu;
+
+    @FXML
     private ComboBox<String> genreComboBox; // Reference to the genre combo box
+    private User user;
 
     @FXML
     private Button logoutButton;
@@ -41,6 +53,10 @@ public class ControllerHome {
 
     public ControllerHome() {
         this.firestoreService = new FirestoreService(); // Initialize Firestore service
+    }
+
+    public void setUser(User user){
+        this.user = user;
     }
 
     public void initialize() {
@@ -67,6 +83,14 @@ public class ControllerHome {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
+        User currentUser = UserSession.getInstance().getUser();
+        System.out.println("Logged in as a role of: " + currentUser.getRole());
+        loggedUser.setText(currentUser.getName());
+        if(Objects.equals(currentUser.getRole(), "user")){
+            addBookMenu.setVisible(false);
+        } else addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
+
     }
 
     private void loadBooks(List<Book> bookList) {
