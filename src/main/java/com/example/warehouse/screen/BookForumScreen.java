@@ -50,30 +50,30 @@ public class BookForumScreen {
     @FXML
     public void onSubmit() {
         try {
-            // Create a Book object based on the input fields
-//            Book book = new Book(
-//                    titleField.getText(),
-//                    authorField.getText(),
-//                    java.sql.Date.valueOf(publishedDatePicker.getValue()),  // Convert LocalDate to Date
-//                    isbnField.getText(),
-//                    Double.parseDouble(priceField.getText()),
-//                    Integer.parseInt(countField.getText()),
-//                    descriptionField.getText(),
-//                    pictureUrlField.getText(),
-//                    categoryField.getValue()
-//            );
-
+//             Create a Book object based on the input fields
             Book book = new Book(
-                    "Effective Java",
-                    "Joshua Bloch",
-                    new Date(),
-                    "9780134685991",
-                    45.99,
-                    10,
-                    "A comprehensive guide to Java best practices.",
-                    "http://example.com/cover.jpg",
-                    "Programming"
+                    titleField.getText(),
+                    authorField.getText(),
+                    java.sql.Date.valueOf(publishedDatePicker.getValue()),  // Convert LocalDate to Date
+                    isbnField.getText(),
+                    Double.parseDouble(priceField.getText()),
+                    Integer.parseInt(countField.getText()),
+                    descriptionField.getText(),
+                    pictureUrlField.getText(),
+                    categoryField.getValue()
             );
+
+//            Book book = new Book(
+//                    "Effective Java",
+//                    "Joshua Bloch",
+//                    new Date(),
+//                    "9780134685991",
+//                    45.99,
+//                    10,
+//                    "A comprehensive guide to Java best practices.",
+//                    "http://example.com/cover.jpg",
+//                    "Programming"
+//            );
 
             // Create a background task for Firebase operation
             Task<Void> addBookTask = new Task<Void>() {
