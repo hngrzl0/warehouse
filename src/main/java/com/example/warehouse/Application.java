@@ -12,10 +12,9 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         // Initialize Firebase before setting up the UI
         FirebaseConfig.initializeFirebase();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("layout/screen_forum.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("layout/screen_login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Book forum");
+        stage.setTitle("Login Page");
         stage.setScene(scene);
         stage.show();
     }

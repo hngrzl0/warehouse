@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.screen.LoginScreen">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="929.46" style="-fx-background-color: F38B40;" BorderPane.alignment="CENTER">
          <children>
@@ -48,7 +48,7 @@
                <VBox.margin>
                   <Insets left="75.0" top="20.0" />
                </VBox.margin></Text>
-            <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="36.71" prefWidth="252.1" style="-fx-background-radius: 8.31; -fx-border-radius: 8.31; -fx-border-color: DEDEDE;">
+            <TextField fx:id="usernameField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="36.71" prefWidth="252.1" style="-fx-background-radius: 8.31; -fx-border-radius: 8.31; -fx-border-color: DEDEDE;">
                <VBox.margin>
                   <Insets left="75.0" />
                </VBox.margin></TextField>
@@ -59,7 +59,7 @@
                <font>
                   <Font name="System Bold" size="13.85" />
                </font></Text>
-            <PasswordField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="36.71" prefWidth="252.1" style="-fx-border-color: DEDEDE; -fx-background-radius: 8.31; -fx-border-radius: 8.31;">
+            <PasswordField fx:id="passwordField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="36.71" prefWidth="252.1" style="-fx-border-color: DEDEDE; -fx-background-radius: 8.31; -fx-border-radius: 8.31;">
                <VBox.margin>
                   <Insets left="75.0" />
                </VBox.margin>
@@ -72,7 +72,7 @@
                   <Insets left="215.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.09" prefWidth="250.0" style="-fx-background-color: F38B40; -fx-border-radius: 8.31; -fx-background-radius: 8.31;" text="Log in" textFill="WHITE">
+            <Button fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="38.09" prefWidth="250.0" style="-fx-background-color: F38B40; -fx-border-radius: 8.31; -fx-background-radius: 8.31;" text="Log in" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.85" />
                </font>

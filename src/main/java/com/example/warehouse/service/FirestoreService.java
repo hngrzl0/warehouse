@@ -1,10 +1,8 @@
 package com.example.warehouse.service;
 
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.WriteResult;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.example.warehouse.model.User;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
 import com.example.warehouse.model.Book;
 import com.google.firebase.cloud.FirestoreClient;
 
@@ -123,5 +121,22 @@ public class FirestoreService {
         DocumentReference bookRef = db.collection("book").document(bookId);
         WriteResult result = bookRef.delete().get();
         System.out.println("Deleted book at " + result.getUpdateTime());
+    }
+
+    //authenticate User
+    // Method to validate user login
+    public User authenticateUser(String username, String password) throws InterruptedException, ExecutionException {
+        CollectionReference usersCollection = db.collection("user");
+        Query query = usersCollection.whereEqualTo("username", username).whereEqualTo("password", password);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        if (!querySnapshot.get().isEmpty()) {
+            // Convert Firestore document to User object
+            QueryDocumentSnapshot document = querySnapshot.get().getDocuments().get(0);
+            User user = document.toObject(User.class);
+            return user;
+        } else {
+            return null; // No matching user found
+        }
     }
 }
