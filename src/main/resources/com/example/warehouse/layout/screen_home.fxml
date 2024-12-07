@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.ControllerHome">
+<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.ControllerHome">
    <left>
       <VBox prefHeight="1080.0" prefWidth="258.0" BorderPane.alignment="CENTER">
          <children>
@@ -78,6 +79,21 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </VBox>
+                  <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutButtonClick" prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: transparant;" text="Log out" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="300.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icon_logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
                <padding>
                   <Insets bottom="50.0" left="30.0" right="30.0" top="50.0" />
@@ -108,7 +124,7 @@
                                           <Insets left="8.0" />
                                        </HBox.margin>
                                     </ImageView>
-                                    <TextField prefHeight="26.0" prefWidth="209.0" promptText="Хайх ном..." style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" fx:id="searchField"/>
+                                    <TextField fx:id="searchField" prefHeight="26.0" prefWidth="209.0" promptText="Хайх ном..." style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" />
                                  </children>
                               </HBox>
                               <HBox spacing="9.0">
@@ -140,7 +156,7 @@
                                              <Insets left="8.0" />
                                           </HBox.margin>
                                        </ImageView>
-                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin">
+                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User">
                                           <HBox.margin>
                                              <Insets right="8.0" />
                                           </HBox.margin>
@@ -171,7 +187,7 @@
                                     <Insets bottom="3.0" top="3.0" />
                                  </padding>
                               </HBox>
-                              <ComboBox prefHeight="34.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #E5E5E5; -fx-border-radius: 8; -fx-border-width: 1.5;" fx:id="genreComboBox" />
+                              <ComboBox fx:id="genreComboBox" prefHeight="34.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #E5E5E5; -fx-border-radius: 8; -fx-border-width: 1.5;" />
                            </children>
                         </HBox>
             
