@@ -1,18 +1,21 @@
 package com.example.warehouse;
 
-import javafx.application.Application;
+import com.example.warehouse.database.FirebaseConfig;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("layout/screen_home.fxml"));
+        // Initialize Firebase before setting up the UI
+        FirebaseConfig.initializeFirebase();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("layout/screen_forum.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Book forum");
         stage.setScene(scene);
         stage.show();
     }
