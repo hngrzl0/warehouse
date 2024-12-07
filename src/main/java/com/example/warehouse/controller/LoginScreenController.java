@@ -1,4 +1,4 @@
-package com.example.warehouse;
+package com.example.warehouse.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
