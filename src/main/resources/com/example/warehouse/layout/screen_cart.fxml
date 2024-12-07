@@ -13,14 +13,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.screen.CartScreen">
    <center>
       <VBox prefHeight="1080.0" prefWidth="1920.0" spacing="25.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="24.0" right="24.0" top="24.0" />
          </padding>
-         <HBox layoutX="10.0" layoutY="129.0" prefHeight="660.0" prefWidth="1048.0">
-            <VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="594.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+         <HBox  layoutX="10.0" layoutY="129.0" prefHeight="660.0" prefWidth="1048.0">
+            <VBox fx:id="tiles" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="594.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
                <padding>
                   <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
                </padding>
@@ -79,152 +79,6 @@
                   </Text>
                </HBox>
                <Line endX="470.0" startX="-100.0" stroke="#c2c7cc" />
-               <HBox prefHeight="100.0" prefWidth="200.0">
-                  <ImageView fitHeight="59.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="30.0" top="20.0" />
-                     </HBox.margin>
-                     <Image url="@../assets/book.png" />
-                  </ImageView>
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="10'000₮">
-                     <HBox.margin>
-                        <Insets left="20.0" top="50.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Harry Potter">
-                     <HBox.margin>
-                        <Insets left="-38.0" top="30.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="86.0" spacing="10" style="-fx-border-color: lightgray; -fx-border-radius: 100; -fx-padding: 5; -fx-background-radius: 50;">
-                     <HBox.margin>
-                        <Insets left="100.0" top="35.0" />
-                     </HBox.margin>
-                     <Button style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="-">
-                        <HBox.margin>
-                           <Insets left="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Label style="-fx-font-size: 16;" text="1" />
-                     <Button style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="+">
-                        <HBox.margin>
-                           <Insets right="6.0" />
-                        </HBox.margin>
-                     </Button>
-                  </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10'000₮">
-                     <HBox.margin>
-                        <Insets left="130.0" top="35.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-               </HBox>
-               <Line endX="470.0" startX="-100.0" stroke="#c2c7cc" />
-               <HBox prefHeight="100.0" prefWidth="200.0">
-                  <ImageView fitHeight="59.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="30.0" top="20.0" />
-                     </HBox.margin>
-                     <Image url="@../assets/book.png" />
-                  </ImageView>
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="10'000₮">
-                     <HBox.margin>
-                        <Insets left="20.0" top="50.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Harry Potter">
-                     <HBox.margin>
-                        <Insets left="-38.0" top="30.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="86.0" spacing="10" style="-fx-border-color: lightgray; -fx-border-radius: 100; -fx-padding: 5; -fx-background-radius: 50;">
-                     <HBox.margin>
-                        <Insets left="100.0" top="35.0" />
-                     </HBox.margin>
-                     <Button style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="-">
-                        <HBox.margin>
-                           <Insets left="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Label style="-fx-font-size: 16;" text="1" />
-                     <Button style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="+">
-                        <HBox.margin>
-                           <Insets right="6.0" />
-                        </HBox.margin>
-                     </Button>
-                  </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10'000₮">
-                     <HBox.margin>
-                        <Insets left="130.0" top="35.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-               </HBox>
-               <Line endX="470.0" startX="-100.0" stroke="#c2c7cc" />
-               <HBox prefHeight="100.0" prefWidth="200.0">
-                  <ImageView fitHeight="59.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets left="30.0" top="20.0" />
-                     </HBox.margin>
-                     <Image url="@../assets/book.png" />
-                  </ImageView>
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="10'000₮">
-                     <HBox.margin>
-                        <Insets left="20.0" top="50.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Harry Potter">
-                     <HBox.margin>
-                        <Insets left="-38.0" top="30.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="86.0" spacing="10" style="-fx-border-color: lightgray; -fx-border-radius: 100; -fx-padding: 5; -fx-background-radius: 50;">
-                     <HBox.margin>
-                        <Insets left="100.0" top="35.0" />
-                     </HBox.margin>
-                     <Button style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="-">
-                        <HBox.margin>
-                           <Insets left="10.0" />
-                        </HBox.margin>
-                     </Button>
-                     <Label style="-fx-font-size: 16;" text="1" />
-                     <Button style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="+">
-                        <HBox.margin>
-                           <Insets right="6.0" />
-                        </HBox.margin>
-                     </Button>
-                  </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10'000₮">
-                     <HBox.margin>
-                        <Insets left="130.0" top="35.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Text>
-               </HBox>
             </VBox>
             <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="501.0" prefWidth="356.0" style="-fx-background-color: white; -fx-background-radius: 15;">
                <padding>
@@ -250,7 +104,7 @@
                         <Font size="8.0" />
                      </font>
                   </Text>
-                  <TextField prefHeight="26.0" prefWidth="279.0" promptText="Delivery address...">
+                  <TextField fx:id="addressTf" prefHeight="26.0" prefWidth="279.0" promptText="Delivery address...">
                      <HBox.margin>
                         <Insets left="-105.0" top="58.0" />
                      </HBox.margin>
@@ -302,7 +156,7 @@
                         <Font size="11.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="40'000₮">
+                  <Text fx:id="price" strokeType="OUTSIDE" strokeWidth="0.0" text="40'000₮">
                      <HBox.margin>
                         <Insets top="25.0" />
                      </HBox.margin>
@@ -321,7 +175,7 @@
                         <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
                      </HBox.margin>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="40'000₮">
+                  <Text fx:id="amount" strokeType="OUTSIDE" strokeWidth="0.0" text="40'000₮">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -330,7 +184,7 @@
                      </HBox.margin>
                   </Text>
                </HBox>
-               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #F38B40; -fx-background-radius: 6.73;" text="Continue with payment " textFill="WHITE">
+               <Button fx:id="deliveryBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-color: #F38B40; -fx-background-radius: 6.73;" text="Continue with payment " textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="11.0" />
                   </font>
@@ -338,7 +192,7 @@
                      <Insets left="30.0" right="30.0" top="15.0" />
                   </VBox.margin>
                </Button>
-               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-radius: 6.73; -fx-background-color: white; -fx-border-color: #d4d4d4; -fx-border-radius: 6.73;" text="Cancel ">
+               <Button fx:id="cancelBtn" onMouseClicked="#handleCancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="267.0" style="-fx-background-radius: 6.73; -fx-background-color: white; -fx-border-color: #d4d4d4; -fx-border-radius: 6.73;" text="Cancel ">
                   <font>
                      <Font name="System Bold" size="11.0" />
                   </font>

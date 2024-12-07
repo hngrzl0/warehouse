@@ -1,6 +1,7 @@
 package com.example.warehouse.controller;
 
 import com.example.warehouse.model.Book;
+import com.example.warehouse.model.Cart;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,10 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class ControllerBookCard {
@@ -42,5 +43,10 @@ public class ControllerBookCard {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleAddToCart(MouseEvent mouseEvent) {
+        Cart cart = Cart.getInstance();
+        cart.addBook(book);
     }
 }
