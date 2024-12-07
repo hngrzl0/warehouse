@@ -34,6 +34,7 @@ public class ControllerHome {
                 new Book("Ном 6", "18'000₮", 30, "/com/example/warehouse/assets/book1.png")
 
         );
+        //aa
 
         loadBooks(bookList);
     }
