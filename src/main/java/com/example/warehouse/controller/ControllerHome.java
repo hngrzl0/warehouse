@@ -126,8 +126,8 @@ public class ControllerHome {
 
         loadBooks(filteredBooks); // Reload the filtered books into the GridPane
     }
-    @FXML
-    public void handleAddBook(MouseEvent mouseEvent) {
+
+    public void handleForumMenu(MouseEvent mouseEvent) {
         try {
             // Load the next screen FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_forum.fxml"));
