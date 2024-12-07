@@ -120,4 +120,21 @@ public class ControllerBookDetail {
             e.printStackTrace();
         }
     }
+
+    public void handleSearchBox(MouseEvent mouseEvent) {
+        try {
+            // Load the next screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_home.fxml"));
+            Parent newRoot = loader.load();
+
+            // Get the current stage and set the new scene
+            Stage stage = (Stage) bookImage.getScene().getWindow(); // Get the current stage
+            Scene scene = new Scene(newRoot);
+            stage.setScene(scene); // Set the new scene
+            stage.show(); // Show the new scene
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

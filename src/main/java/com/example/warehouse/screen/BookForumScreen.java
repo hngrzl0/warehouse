@@ -5,11 +5,17 @@ import com.example.warehouse.model.Book;
 import com.example.warehouse.service.FirestoreService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.concurrent.Task;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -105,6 +111,40 @@ public class BookForumScreen {
             new Thread(addBookTask).start();
         } catch (Exception e) {
             System.err.println("Error creating book: " + e.getMessage());
+        }
+    }
+
+    public void handleHomeMenu(MouseEvent mouseEvent) {
+        try {
+            // Load the next screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_home.fxml"));
+            Parent newRoot = loader.load();
+
+            // Get the current stage and set the new scene
+            Stage stage = (Stage) titleField.getScene().getWindow(); // Get the current stage
+            Scene scene = new Scene(newRoot);
+            stage.setScene(scene); // Set the new scene
+            stage.show(); // Show the new scene
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleSearchBox(MouseEvent mouseEvent) {
+        try {
+            // Load the next screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_home.fxml"));
+            Parent newRoot = loader.load();
+
+            // Get the current stage and set the new scene
+            Stage stage = (Stage) titleField.getScene().getWindow(); // Get the current stage
+            Scene scene = new Scene(newRoot);
+            stage.setScene(scene); // Set the new scene
+            stage.show(); // Show the new scene
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

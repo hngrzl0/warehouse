@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -44,11 +43,25 @@
                                         </Text>
                                     </children>
                                 </HBox>
-                                <HBox fx:id="addBook" alignment="CENTER_LEFT" layoutX="30.0" layoutY="10.0" onMouseClicked="#handleAddBook" spacing="7.0">
+                                <HBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="10.0" spacing="7.0">
                                     <children>
                                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../assets/icon_history.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="History">
+                                            <font>
+                                                <Font name="Roboto Regular" size="15.0" />
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </HBox>
+                                <HBox onMouseClicked="#handleAddBook" spacing="7.0">
+                                    <children>
+                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../assets/icon_add_black.png" />
                                             </image>
                                         </ImageView>
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Book">
@@ -79,66 +92,68 @@
             <children>
                   <VBox prefHeight="869.0" spacing="25.0" style="-fx-background-color: F0F1F2;">
                       <children>
-                          <HBox prefHeight="70.0" spacing="570.0" style="-fx-background-color: white; -fx-background-radius: 15;">
-                              <children>
-                                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="255.0" spacing="3.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
-                                      <children>
-                                          <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                                              <image>
-                                                  <Image url="@../assets/icon_search.png" />
-                                              </image>
-                                              <HBox.margin>
-                                                  <Insets left="8.0" />
-                                              </HBox.margin>
-                                          </ImageView>
-                                          <TextField fx:id="searchField" prefHeight="26.0" prefWidth="209.0" promptText="Хайх ном..." style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" />
-                                      </children>
-                                  </HBox>
-                                  <HBox spacing="9.0">
-                                      <children>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="42.0" spacing="7.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
-                                              <children>
-                                                  <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                                                      <image>
-                                                          <Image url="@../assets/icon_cart.png" />
-                                                      </image>
-                                                      <HBox.margin>
-                                                          <Insets left="8.0" />
-                                                      </HBox.margin>
-                                                  </ImageView>
-                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cart">
-                                                      <font>
-                                                          <Font name="Roboto Regular" size="15.0" />
-                                                      </font>
-                                                      <HBox.margin>
-                                                          <Insets right="8.0" />
-                                                      </HBox.margin>
-                                                  </Text>
-                                              </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="42.0" spacing="9.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
-                                              <ImageView fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-                                                  <Image url="@../assets/icon_user.png" />
-                                                  <HBox.margin>
-                                                      <Insets left="8.0" />
-                                                  </HBox.margin>
-                                              </ImageView>
-                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin">
-                                                  <HBox.margin>
-                                                      <Insets right="8.0" />
-                                                  </HBox.margin>
-                                                  <font>
-                                                      <Font name="Roboto Regular" size="15.0" />
-                                                  </font>
-                                              </Text>
-                                          </HBox>
-                                      </children>
-                                  </HBox>
-                              </children>
-                              <padding>
-                                  <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
-                              </padding>
-                          </HBox>
+
+                            <HBox prefHeight="70.0" spacing="570.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+                                <children>
+                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#handleSearchBox" prefHeight="75.0" prefWidth="243.0" spacing="3.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
+                                        <children>
+                                            <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../assets/icon_search.png" />
+                                                </image>
+                                                <HBox.margin>
+                                                    <Insets left="8.0" />
+                                                </HBox.margin>
+                                            </ImageView>
+                                            <Label fx:id="searchField" prefHeight="41.0" prefWidth="205.0" style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" text="Хайх ном..." textFill="#8d8d8d" />
+
+                                        </children>
+                                    </HBox>
+                                    <HBox spacing="9.0">
+                                        <children>
+                                            <HBox alignment="CENTER_LEFT" prefHeight="42.0" spacing="7.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
+                                                <children>
+                                                    <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../assets/icon_cart.png" />
+                                                        </image>
+                                                        <HBox.margin>
+                                                            <Insets left="8.0" />
+                                                        </HBox.margin>
+                                                    </ImageView>
+                                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cart">
+                                                        <font>
+                                                            <Font name="Roboto Regular" size="15.0" />
+                                                        </font>
+                                                        <HBox.margin>
+                                                            <Insets right="8.0" />
+                                                        </HBox.margin>
+                                                    </Text>
+                                                </children>
+                                            </HBox>
+                                            <HBox alignment="CENTER_LEFT" prefHeight="42.0" spacing="9.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
+                                                <ImageView fitHeight="17.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                                    <Image url="@../assets/icon_user.png" />
+                                                    <HBox.margin>
+                                                        <Insets left="8.0" />
+                                                    </HBox.margin>
+                                                </ImageView>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin">
+                                                    <HBox.margin>
+                                                        <Insets right="8.0" />
+                                                    </HBox.margin>
+                                                    <font>
+                                                        <Font name="Roboto Regular" size="15.0" />
+                                                    </font>
+                                                </Text>
+                                            </HBox>
+                                        </children>
+                                    </HBox>
+                                </children>
+                     <padding>
+                        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                     </padding>
+                            </HBox>
                   <HBox prefHeight="514.0" prefWidth="1048.0" style="-fx-background-color: white; -fx-background-radius: 15;">
                      <children>
                         <AnchorPane prefHeight="513.0" prefWidth="1095.0">
@@ -183,7 +198,7 @@
                                  </padding>
                               </HBox>
                               <HBox />
-                              <Text onMouseClicked="#handleBackButton" fill="#6f6f6f" layoutX="38.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Буцах" />
+                              <Text fill="#6f6f6f" layoutX="38.0" layoutY="44.0" onMouseClicked="#handleBackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Буцах" />
                            </children>
                         </AnchorPane>
                      </children>

@@ -45,11 +45,25 @@
                               </Text>
                            </children>
                         </HBox>
-                        <HBox fx:id="addBook" onMouseClicked="#handleAddBook" alignment="CENTER_LEFT" layoutX="30.0" layoutY="10.0" spacing="7.0">
+                        <HBox fx:id="addBook" alignment="CENTER_LEFT" layoutX="30.0" layoutY="10.0" spacing="7.0">
                            <children>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../assets/icon_history.png" />
+                                 </image>
+                              </ImageView>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="History">
+                                 <font>
+                                    <Font name="Roboto Regular" size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox onMouseClicked="#handleForumMenu" spacing="7.0">
+                           <children>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/icon_add_black.png" />
                                  </image>
                               </ImageView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Book">
