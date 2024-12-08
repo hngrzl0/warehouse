@@ -21,56 +21,76 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import static java.lang.System.out;
+
+/**
+ * Controller class for the Book Detail screen in the warehouse application.
+ * <p>
+ * This class manages the display and interaction with the details of a selected book.
+ * It allows users to view book details, add the book to their cart, purchase it,
+ * and navigate between screens. Additionally, it includes user-specific functionalities
+ * such as hiding buttons for admin users.
+ * </p>
+ *
+ * @author Khongorzul, Margad
+ * @version 1.0
+ * @since 2024-11-28
+ */
 public class BookDetailController {
 
     @FXML
-    private ImageView bookImage;         // ImageView for displaying book image
+    private ImageView bookImage;
     @FXML
-    private Text bookTitle;              // Text for book title
+    private Text bookTitle;
     @FXML
-    private Label bookDescription;       // Label for book description
+    private Label bookDescription;
     @FXML
     private Text bookPrice;
     @FXML
-    private Button logoutButton;// Text for book price
+    private Button logoutButton;
     @FXML
     private Label countLabel;
     @FXML
-    private Button decreaseButton;
-    @FXML
-    private Button increaseButton;
-    @FXML
-    private Button buyButton;
-    @FXML
-    private Button addToCartButton;
-    @FXML
     private HBox btnCart;
-    private FirestoreService firestoreService;
+    private final FirestoreService firestoreService;
     private String bookId;
     private Book book;
     private int count = 1;
 
+    /**
+     * Constructs a {@code BookDetailController} and initializes the Firestore service.
+     */
     public BookDetailController() {
         this.firestoreService = new FirestoreService(); // Initialize Firestore service
     }
 
-    // Set the bookId from the previous screen (book card click)
+    /**
+     * Sets the selected book and loads its details into the UI.
+     *
+     * @param book The selected {@link Book} object.
+     */
     public void setBookId(Book book) {
         this.book = book;
         this.bookId = book.getId();
         loadBookDetails();
     }
 
+
+    /**
+     * Loads the details of the selected book and updates the UI components.
+     */
     private void loadBookDetails() {
         try {
             // Fetch the full details of the book using the bookId
-            System.out.println("Book Detail of: " + book.getId());// Replace this with your actual method for fetching book by ID
+            System.out.println("Book Detail of: " + book.getId());
 
             // Set the UI components with the book details
             bookTitle.setText(book.getTitle());
             bookDescription.setText(book.getDescription());
-            bookPrice.setText(String.valueOf(book.getPrice()) + "₮");
+            bookPrice.setText(book.getPrice() + "₮");
             bookImage.setImage(new Image(book.getPictureUrl()));  // Set the book image
             User currentUser = UserSession.getInstance().getUser();
             if(Objects.equals(currentUser.getRole(), "admin")){
@@ -78,7 +98,8 @@ public class BookDetailController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
     @FXML
@@ -113,8 +134,8 @@ public class BookDetailController {
         Cart.getInstance().addBookWithQuantity(book, count);
 
         // Show a confirmation message
-        System.out.println("Added to cart: " + book.getTitle());
-        System.out.println(count + " copies of the book added to the cart!");
+        out.println("Added to cart: " + book.getTitle());
+        out.println(count + " copies of the book added to the cart!");
 
         // Reset the count after adding to the cart
         count = 1;
@@ -136,7 +157,8 @@ public class BookDetailController {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
     public void handleAddBook(MouseEvent mouseEvent) {
@@ -154,7 +176,8 @@ public class BookDetailController {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
@@ -173,7 +196,8 @@ public class BookDetailController {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
@@ -190,7 +214,8 @@ public class BookDetailController {
             stage.show(); // Show the new scene
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
@@ -211,10 +236,10 @@ public class BookDetailController {
             // Show the new scene
             currentStage.show();
 
-            System.out.println("User logged out and redirected to the login screen.");
+            out.println("User logged out and redirected to the login screen.");
         } catch (IOException e) {
-            System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 }
