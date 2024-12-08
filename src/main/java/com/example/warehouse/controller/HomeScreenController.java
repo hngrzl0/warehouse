@@ -145,7 +145,7 @@ public class HomeScreenController {
                 ImageView bookImageView = (ImageView) bookCard.lookup("#bookImage");
                 Label bookTitleLabel = (Label) bookCard.lookup("#bookTitle");
                 Label bookPriceLabel = (Label) bookCard.lookup("#bookPrice");
-                Label bookStockLabel = (Label) bookCard.lookup("#bookStock");
+                Text bookAuthorText = (Text) bookCard.lookup("#author");
                 Button addToCartButton = (Button) bookCard.lookup("#addToCartButton");
                 if(Objects.equals(currentUser.getRole(), "admin")){
                     addToCartButton.setVisible(false);
@@ -154,7 +154,7 @@ public class HomeScreenController {
 
                 bookTitleLabel.setText(book.getTitle());
                 bookPriceLabel.setText("" + book.getPrice() + "₮");
-                bookStockLabel.setText("" + book.getCount() + " unit");
+                bookAuthorText.setText("" + book.getAuthor());
 
                 addToCartButton.setOnAction(event -> {
                     System.out.println(book.getTitle() + " added to cart!");

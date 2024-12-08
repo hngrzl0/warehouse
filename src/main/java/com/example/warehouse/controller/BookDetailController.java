@@ -38,7 +38,8 @@ import java.util.logging.Logger;
  * @since 2024-11-28
  */
 public class BookDetailController {
-
+    @FXML
+    public HBox buyBookHbox;
     @FXML
     private ImageView bookImage;
     @FXML
@@ -94,6 +95,7 @@ public class BookDetailController {
         else {
             addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
             btnCart.setVisible(false);
+            buyBookHbox.setVisible(false);
         }
         try {
             // Fetch the full details of the book using the bookId

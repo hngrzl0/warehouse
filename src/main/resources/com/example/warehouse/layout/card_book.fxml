@@ -5,42 +5,55 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="bookCard" onMouseClicked="#handleBookClick" prefHeight="317.0" prefWidth="178.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: white; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.BookCardController">
-
-    <!-- Book Image -->
-    <ImageView fx:id="bookImage" fitHeight="150.0" fitWidth="119.0" layoutX="29.0" layoutY="33.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="19.0" />
-
-    <!-- Book Title -->
-    <Label fx:id="bookTitle" graphicTextGap="0.0" layoutX="25.0" layoutY="198.0" prefHeight="54.0" prefWidth="126.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #000000;" text="Номны нэр" textAlignment="CENTER" wrapText="true">
-      <font>
-         <Font name="Arial" size="13.0" />
-      </font></Label>
-   <VBox layoutX="15.0" layoutY="256.0">
-      <children>
-           <!-- Price -->
-           <Label fx:id="bookPrice" style="-fx-font-size: 14; -fx-text-fill: #000000; -fx-font-weight: bold;" text="10'000₮">
-            <font>
-               <Font name="System Bold" size="12.0" />
-            </font></Label>
-           <!-- Stock -->
-           <Label fx:id="bookStock" style="-fx-font-size: 14; -fx-text-fill: #000000; -fx-font-weight: bold;" text="100" />
-      </children>
-   </VBox>
-
-    <!-- Add to Cart Button -->
-    <Button fx:id="addToCartButton" layoutX="132.0" layoutY="268.0" onMouseClicked="#handleAddToCart" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #FF9800; -fx-background-radius: 20;" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="6.0">
-      <graphic>
-         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../assets/icon_cart_white.png" />
-            </image>
-         </ImageView>
-      </graphic></Button>
+<VBox fx:id="bookCard" onMouseClicked="#handleBookClick" alignment="CENTER" prefHeight="317.0" prefWidth="178.0" spacing="9.0" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.BookCardController">
+   <children>
+   
+          <!-- Book Image -->
+       <ImageView fx:id="bookImage" fitHeight="169.0" fitWidth="119.0" />
+      <VBox alignment="CENTER">
+         <children>
+         
+                <!-- Book Title -->
+             <Label fx:id="bookTitle" alignment="CENTER" graphicTextGap="0.0" prefHeight="6.0" prefWidth="150.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #000000;" text="Номны нэр" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Label>
+            <Text fx:id="author" strokeType="OUTSIDE" strokeWidth="0.0" text="Author">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="45.0" prefWidth="150.0" spacing="30.0">
+         <children>
+              <!-- Price -->
+              <Label fx:id="bookPrice" style="-fx-font-size: 14; -fx-text-fill: #000000; -fx-font-weight: bold;" text="10'000₮">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         
+                <!-- Add to Cart Button -->
+             <Button fx:id="addToCartButton" onMouseClicked="#handleAddToCart" prefHeight="40.0" prefWidth="41.0" style="-fx-background-color: #FF9800; -fx-background-radius: 20;">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/icon_cart_white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+   </children>
    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
    </padding>
-</AnchorPane>
+</VBox>
