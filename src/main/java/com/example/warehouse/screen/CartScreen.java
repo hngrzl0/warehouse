@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
@@ -42,10 +41,8 @@ public class CartScreen {
 
     @FXML
     private VBox tiles;
-
     @FXML
     private Text amount;
-
     @FXML
     public TextField addressTf;
 
@@ -54,9 +51,8 @@ public class CartScreen {
 
     @FXML
     private Button cancelBtn;
-
     @FXML
-    private Button logoutButton;
+    private Button logoutBtn;
 
     @FXML
     private Text homePageTxt;
@@ -163,7 +159,7 @@ public class CartScreen {
                     getClass().getResource("/com/example/warehouse/layout/screen_login.fxml")
             );
             Parent loginScreen = loader.load();
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            Stage currentStage = (Stage) logoutBtn.getScene().getWindow();
             Scene loginScene = new Scene(loginScreen);
             currentStage.setScene(loginScene);
             currentStage.show();
