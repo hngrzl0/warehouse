@@ -2,6 +2,8 @@ package com.example.warehouse.controller;
 
 import com.example.warehouse.model.Book;
 import com.example.warehouse.model.Cart;
+import com.example.warehouse.model.User;
+import com.example.warehouse.model.UserSession;
 import com.example.warehouse.service.FirestoreService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class BookDetailController {
 
@@ -67,8 +70,12 @@ public class BookDetailController {
             // Set the UI components with the book details
             bookTitle.setText(book.getTitle());
             bookDescription.setText(book.getDescription());
-            bookPrice.setText(String.valueOf(book.getPrice()));
+            bookPrice.setText(String.valueOf(book.getPrice()) + "₮");
             bookImage.setImage(new Image(book.getPictureUrl()));  // Set the book image
+            User currentUser = UserSession.getInstance().getUser();
+            if(Objects.equals(currentUser.getRole(), "admin")){
+                btnCart.setVisible(false);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

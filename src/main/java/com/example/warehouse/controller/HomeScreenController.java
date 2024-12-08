@@ -96,6 +96,7 @@ public class HomeScreenController {
         else {
             addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
             btnCart.setVisible(false);
+
         }
 
 
@@ -111,13 +112,15 @@ public class HomeScreenController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/card_book.fxml"));
                 Parent bookCard = loader.load();
-
+                User currentUser = UserSession.getInstance().getUser();
                 ImageView bookImageView = (ImageView) bookCard.lookup("#bookImage");
                 Label bookTitleLabel = (Label) bookCard.lookup("#bookTitle");
                 Label bookPriceLabel = (Label) bookCard.lookup("#bookPrice");
                 Label bookStockLabel = (Label) bookCard.lookup("#bookStock");
                 Button addToCartButton = (Button) bookCard.lookup("#addToCartButton");
-
+                if(Objects.equals(currentUser.getRole(), "admin")){
+                    addToCartButton.setVisible(false);
+                }
                 InputStream imageStream = getClass().getResourceAsStream(book.getPictureUrl());
                 if (imageStream == null) {
                     System.err.println("Image not found: " + book.getPictureUrl());
@@ -126,8 +129,8 @@ public class HomeScreenController {
                 bookImageView.setImage(new Image(imageStream));
 
                 bookTitleLabel.setText(book.getTitle());
-                bookPriceLabel.setText("" + book.getPrice());
-                bookStockLabel.setText("" + book.getCount());
+                bookPriceLabel.setText("" + book.getPrice() + "₮");
+                bookStockLabel.setText("" + book.getCount() + " unit");
 
                 addToCartButton.setOnAction(event -> {
                     System.out.println(book.getTitle() + " added to cart!");

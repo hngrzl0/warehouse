@@ -201,8 +201,8 @@
                                           <Line endX="292.6927490234375" endY="-6.721019599353895E-5" layoutX="111.0" layoutY="79.0" startX="-100.0" stroke="#d3d3d3" />
                                           <HBox prefHeight="50.0" prefWidth="466.0" spacing="10.0">
                                              <children>
-                                                <Button fx:id="buyButton" mnemonicParsing="false" onMouseClicked="#handleBuy" prefWidth="100.0" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: F38B40;" text="Buy" textFill="WHITE" />
-                                                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="96.0" spacing="10" style="-fx-border-color: lightgray; -fx-border-radius: 100; -fx-padding: 5; -fx-background-radius: 50;">
+                                                <Button fx:id="buyButton" mnemonicParsing="false" onMouseClicked="#handleBuy" prefWidth="90.0" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: F38B40;" text="Buy" textFill="WHITE" />
+                                                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="110.0" spacing="10" style="-fx-border-color: lightgray; -fx-border-radius: 100; -fx-padding: 5; -fx-background-radius: 50;">
                                                    <children>
                                                       <Button fx:id="decreaseButton" onMouseClicked="#handleDecreaseCount" style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="-">
                                                          <HBox.margin>
@@ -212,7 +212,7 @@
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Button>
-                                                      <Label fx:id="countLabel" style="-fx-font-size: 16;" text="1" />
+                                                      <Label fx:id="countLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="20.0" style="-fx-font-size: 16; -fx-alignment: center;" text="1" textAlignment="CENTER" />
                                                       <Button fx:id="increaseButton" onMouseClicked="#handleIncreaseCount" style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="+">
                                                          <HBox.margin>
                                                             <Insets right="6.0" />
@@ -223,7 +223,7 @@
                                                       <Insets left="40.0" />
                                                    </HBox.margin>
                                                 </HBox>
-                                                <Button fx:id="addToCartButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleAddToCart" prefWidth="100.0" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: white; -fx-border-color: E5E5E5; -fx-border-width: 1.5;" text="Add to cart">
+                                                <Button fx:id="addToCartButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleAddToCart" prefWidth="90.0" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: white; -fx-border-color: E5E5E5; -fx-border-width: 1.5;" text="Add to cart">
                                                    <HBox.margin>
                                                       <Insets left="40.0" />
                                                    </HBox.margin></Button>
