@@ -283,7 +283,7 @@
                                     <Insets left="70.0" />
                                  </VBox.margin>
                               </TextField>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Book description:">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Book category:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>

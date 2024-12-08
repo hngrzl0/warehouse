@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.concurrent.Task;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -109,13 +106,26 @@ public class BookForumScreen {
 
                 @Override
                 protected void succeeded() {
-
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Book Forum");
+                    alert.setHeaderText("Adding the book");
+                    alert.setContentText("Book added successfully to database!");
+                    alert.showAndWait();
                     System.out.println("Book added successfully!");
+
+                    titleField.clear();
+                    authorField.clear();
+                    publishedDatePicker.setValue(null);
+                    isbnField.clear();
+                    priceField.clear();
+                    countField.clear();
+                    descriptionField.clear();
+                    pictureUrlField.clear();
+                    categoryField.setValue(null);
                 }
 
                 @Override
                 protected void failed() {
-
                     System.err.println("Error adding book: " + getException().getMessage());
                 }
             };
