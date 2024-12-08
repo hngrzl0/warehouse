@@ -12,10 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -31,216 +28,224 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * Controller class for the Home Screen in the warehouse application.
+ */
+public class HomeScreen {
+
+    private static final String ALL_GENRES = "All";
+
+    @FXML
+    private GridPane grdBooks;
+
+    @FXML
+    private TextField txtSearchField;
+
+    @FXML
+    private Text txtLoggedUser;
+
+    @FXML
+    private HBox hbxAddBookMenu;
+
+    @FXML
+    private HBox hbxBtnCart;
+
+    @FXML
+    private ComboBox<String> cmbGenre;
+
+    @FXML
+    private Button btnLogout;
+
+    private ObservableList<Book> olstAllBooks;
+    private HomeScreenController hscController;
+
     /**
-     * Controller class for the Home Screen in the warehouse application.
-     * <p>
-     * This class handles displaying books in a grid layout, providing search and filter functionalities,
-     * and managing role-based UI visibility. It also provides navigation to other screens like cart and login.
-     * </p>
-     *
-     * @version 1.0
-     * @since 2024-12-08
+     * Initializes the Home Screen UI and loads data.
      */
-    public class HomeScreen {
-
-        @FXML
-        private GridPane grdBooks;
-
-        @FXML
-        private TextField txtSearchField;
-
-        @FXML
-        private Text txtLoggedUser;
-
-        @FXML
-        private HBox hbxAddBookMenu;
-
-        @FXML
-        private HBox hbxBtnCart;
-
-        @FXML
-        private ComboBox<String> cmbGenre;
-
-        @FXML
-        private Button btnLogout;
-
-        private ObservableList<Book> olstAllBooks;
-
-        private HomeScreenController hscController;
-
-        /**
-         * Initializes the Home Screen by setting up the UI, loading books, and configuring event handlers.
-         * This method is invoked automatically after the FXML file is loaded.
-         */
-        public void initialize() {
-            FirestoreService fsFirestoreService = new FirestoreService();
-            hscController = new HomeScreenController(fsFirestoreService);
-
-            // Populate genre combo box
-            if (cmbGenre != null) {
-                cmbGenre.setItems(FXCollections.observableArrayList(
-                        "All", "Fiction", "Non-Fiction", "Science", "Children's Books", "Adventure", "History", "Romance", "Fantasy"
-                ));
-                cmbGenre.setValue("All");
-            } else {
-                System.out.println("Genre combo box is null");
-            }
-
-            try {
-                // Fetch and display all books
-                olstAllBooks = (ObservableList<Book>) hscController.getBookList();
-                cmbGenre.setOnAction(event -> filterBooks());
-                txtSearchField.textProperty()
-                        .addListener((observable, oldValue, newValue) -> filterBooks());
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            loadBooks(olstAllBooks);
-
-            // Setup UI based on user role
-            User usrCurrentUser = UserSession.getInstance().getUser();
-            System.out.println("Logged in as a role of: " + usrCurrentUser.getRole());
-            txtLoggedUser.setText(usrCurrentUser.getName());
-
-
-            hbxAddBookMenu.setVisible(false);
-            if(Objects.equals(usrCurrentUser.getRole(), "admin")){
-                hbxAddBookMenu.setVisible(true);
-                hbxBtnCart.setVisible(false);
-            }
-        }
-
-        /**
-         * Loads a list of books into the grid layout.
-         *
-         * @param lstBooks The list of books to display.
-         */
-        private void loadBooks(List<Book> lstBooks) {
-            grdBooks.getChildren().clear();
-            int iColumn = 0;
-            int iRow = 0;
-            int iMaxColumns = 5;
-
-            for (Book bkBook : lstBooks) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(
-                            getClass().getResource("/com/example/warehouse/layout/card_book.fxml")
-                    );
-                    Parent prtBookCard = fxmlLoader.load();
-                    User usrCurrentUser = UserSession.getInstance().getUser();
-
-                    // Populate book card details
-                    ImageView imgBookImage = (ImageView) prtBookCard.lookup("#bookImage");
-                    Label lblBookTitle = (Label) prtBookCard.lookup("#bookTitle");
-                    Label lblBookPrice = (Label) prtBookCard.lookup("#bookPrice");
-                    Text txtBookAuthor = (Text) prtBookCard.lookup("#author");
-                    Button btnAddToCart = (Button) prtBookCard.lookup("#addToCartButton");
-
-                    if (Objects.equals(usrCurrentUser.getRole(), "admin")) {
-                        btnAddToCart.setVisible(false);
-                    }
-                    imgBookImage.setImage(new Image(bkBook.getPictureUrl(), true));
-                    lblBookTitle.setText(bkBook.getTitle());
-                    lblBookPrice.setText(bkBook.getPrice() + "₮");
-                    txtBookAuthor.setText(bkBook.getAuthor());
-
-                    btnAddToCart.setOnAction(event -> {
-                        System.out.println(bkBook.getTitle() + " added to cart!");
-                    });
-
-                    BookCardController bccBookCardController = fxmlLoader.getController();
-                    bccBookCardController.setBook(bkBook);
-
-                    grdBooks.add(prtBookCard, iColumn, iRow);
-
-                    iColumn++;
-                    if (iColumn == iMaxColumns) {
-                        iColumn = 0;
-                        iRow++;
-                    }
-
-                } catch (IOException e) {
-                    Logger lgrLogger = Logger.getLogger(getClass().getName());
-                    lgrLogger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
-                }
-            }
-        }
+    public void initialize() {
+        setupController();
+        setupGenreComboBox();
+        setupSearchAndFilter();
+        setupUserUI();
+        loadAllBooks();
+    }
 
     /**
-     * Filters the displayed books based on the search text and selected genre.
+     * Sets up the HomeScreenController.
+     */
+    private void setupController() {
+        FirestoreService fsFirestoreService = new FirestoreService();
+        hscController = new HomeScreenController(fsFirestoreService);
+    }
+
+    /**
+     * Configures the genre combo box with predefined options.
+     */
+    private void setupGenreComboBox() {
+        if (cmbGenre != null) {
+            cmbGenre.setItems(FXCollections.observableArrayList(
+                    ALL_GENRES, "Fiction", "Non-Fiction", "Science", "Children's Books",
+                    "Adventure", "History", "Romance", "Fantasy"
+            ));
+            cmbGenre.setValue(ALL_GENRES);
+        } else {
+            Logger.getLogger(getClass().getName()).warning("Genre combo box is null");
+        }
+    }
+
+    /**
+     * Sets up search and filter listeners.
+     */
+    private void setupSearchAndFilter() {
+        try {
+            olstAllBooks = FXCollections.observableArrayList(hscController.getBookList());
+            cmbGenre.setOnAction(event -> filterBooks());
+            txtSearchField.textProperty().addListener((observable, oldValue, newValue) -> filterBooks());
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Error loading books", e);
+        }
+    }
+
+    /**
+     * Sets up the UI visibility and labels based on the logged-in user's role.
+     */
+    private void setupUserUI() {
+        User usrCurrentUser = UserSession.getInstance().getUser();
+        if (usrCurrentUser != null) {
+            txtLoggedUser.setText(usrCurrentUser.getName());
+            boolean isAdmin = Objects.equals(usrCurrentUser.getRole(), "admin");
+            hbxAddBookMenu.setVisible(isAdmin);
+            hbxBtnCart.setVisible(!isAdmin);
+        }
+    }
+
+    /**
+     * Loads all books into the grid view.
+     */
+    private void loadAllBooks() {
+        if (olstAllBooks != null) {
+            loadBooks(olstAllBooks);
+        }
+    }
+
+    /**
+     * Filters books based on the search text and selected genre.
      */
     public void filterBooks() {
         String strSearchText = txtSearchField.getText().toLowerCase();
         String strSelectedGenre = cmbGenre.getValue();
 
         List<Book> lstFilteredBooks = olstAllBooks.stream()
-                .filter(book -> (strSelectedGenre.equals("All") || book.getCategory().equals(strSelectedGenre)) &&
+                .filter(book -> (ALL_GENRES.equals(strSelectedGenre) || book.getCategory().equalsIgnoreCase(strSelectedGenre)) &&
                         (book.getTitle().toLowerCase().contains(strSearchText)))
                 .collect(Collectors.toList());
 
         loadBooks(lstFilteredBooks);
     }
-        /**
-         * Navigates to the forum screen.
-         *
-         * @param mouseEvent The event triggered by clicking the forum menu.
-         */
-    public void handleForumMenu(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_forum.fxml"));
-            Parent newRoot = loader.load();
-            Stage stage = (Stage) grdBooks.getScene().getWindow();
-            Scene scene = new Scene(newRoot);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
-        }
-    }
 
     /**
-     * Logs out the current user and navigates to the login screen.
-     */
-    @FXML
-    public void onLogoutButtonClick(){
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/warehouse/layout/screen_login.fxml")
-            );
-            Parent loginScreen = loader.load();
-            Stage currentStage = (Stage) btnLogout.getScene().getWindow();
-            Scene loginScene = new Scene(loginScreen);
-            currentStage.setScene(loginScene);
-            currentStage.show();
-            System.out.println("User logged out and redirected to the login screen.");
-        } catch (IOException e) {
-            System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
-        }
-    }
-
-    /**
-     * Navigates to the cart screen.
+     * Loads a list of books into the grid layout.
      *
-     * @param mouseEvent The event triggered by clicking the cart button.
+     * @param lstBooks The list of books to display.
      */
+    private void loadBooks(List<Book> lstBooks) {
+        grdBooks.getChildren().clear();
+        int iColumn = 0, iRow = 0, iMaxColumns = 5;
+
+        for (Book bkBook : lstBooks) {
+            try {
+                Parent prtBookCard = loadBookCard(bkBook);
+                grdBooks.add(prtBookCard, iColumn++, iRow);
+
+                if (iColumn == iMaxColumns) {
+                    iColumn = 0;
+                    iRow++;
+                }
+            } catch (IOException e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Error loading book card", e);
+            }
+        }
+    }
+
+    /**
+     * Loads a book card for the given book.
+     *
+     * @param bkBook The book to display.
+     * @return The parent node of the loaded book card.
+     * @throws IOException if the FXML file cannot be loaded.
+     */
+    private Parent loadBookCard(Book bkBook) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/card_book.fxml"));
+        Parent prtBookCard = fxmlLoader.load();
+
+        BookCardController bccBookCardController =  fxmlLoader.getController();
+        bccBookCardController.setBook(bkBook);
+
+        populateBookCardDetails(prtBookCard, bkBook);
+        return prtBookCard;
+    }
+
+    /**
+     * Populates the book card with details.
+     *
+     * @param prtBookCard The parent node of the book card.
+     * @param bkBook      The book details.
+     */
+    private void populateBookCardDetails(Parent prtBookCard, Book bkBook) {
+        ImageView imgBookImage = (ImageView) prtBookCard.lookup("#bookImage");
+        Label lblBookTitle = (Label) prtBookCard.lookup("#bookTitle");
+        Label lblBookPrice = (Label) prtBookCard.lookup("#bookPrice");
+        Text txtBookAuthor = (Text) prtBookCard.lookup("#author");
+        Button btnAddToCart = (Button) prtBookCard.lookup("#addToCartButton");
+
+        imgBookImage.setImage(new Image(bkBook.getPictureUrl(), true));
+        lblBookTitle.setText(bkBook.getTitle());
+        lblBookPrice.setText(bkBook.getPrice() + "₮");
+        txtBookAuthor.setText(bkBook.getAuthor());
+
+
+        btnAddToCart.setOnAction(event -> Logger.getLogger(getClass().getName())
+                .info(bkBook.getTitle() + " added to cart!"));
+        btnAddToCart.setVisible(!isAdmin());
+    }
+
+    /**
+     * Checks if the current user is an admin.
+     *
+     * @return True if the user is an admin, false otherwise.
+     */
+    private boolean isAdmin() {
+        User usrCurrentUser = UserSession.getInstance().getUser();
+        return usrCurrentUser != null && Objects.equals(usrCurrentUser.getRole(), "admin");
+    }
+
+    @FXML
+    public void onLogoutButtonClick() {
+        navigateToScreen("/com/example/warehouse/layout/screen_login.fxml");
+    }
+
+    public void handleForumMenu(MouseEvent mouseEvent) {
+        navigateToScreen("/com/example/warehouse/layout/screen_forum.fxml");
+    }
+
     public void handleGoToCart(MouseEvent mouseEvent) {
+        navigateToScreen("/com/example/warehouse/layout/screen_cart.fxml");
+    }
+
+    /**
+     * Navigates to the specified screen.
+     *
+     * @param fxmlPath The path to the FXML file of the screen.
+     */
+    private void navigateToScreen(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_cart.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent newRoot = loader.load();
             Stage stage = (Stage) grdBooks.getScene().getWindow();
-            Scene scene = new Scene(newRoot);
-            stage.setScene(scene);
+            stage.setScene(new Scene(newRoot));
             stage.show();
-
         } catch (IOException e) {
-            Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Error navigating to screen: " + fxmlPath, e);
         }
     }
 }
-
