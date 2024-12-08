@@ -82,15 +82,6 @@ public class BookDetailScreen {
         System.out.println("Logged in as a role of: " + currentUser.getRole());
         loggedUser.setText(currentUser.getName());
 
-        if(Objects.equals(currentUser.getRole(), "user")){
-            addBookMenu.setVisible(false);
-        }
-        else {
-            addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
-            btnCart.setVisible(false);
-            buyBookHbox.setVisible(false);
-        }
-
         addBookMenu.setVisible(false);
         if(Objects.equals(currentUser.getRole(), "admin")){
             addBookMenu.setVisible(true);
