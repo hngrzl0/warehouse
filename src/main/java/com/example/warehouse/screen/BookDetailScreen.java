@@ -1,4 +1,4 @@
-package com.example.warehouse.controller;
+package com.example.warehouse.screen;
 
 import com.example.warehouse.model.Book;
 import com.example.warehouse.model.Cart;
@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  * @version 1.0
  * @since 2024-11-28
  */
-public class BookDetailController {
+public class BookDetailScreen {
     @FXML
     public HBox buyBookHbox;
     @FXML
@@ -58,17 +58,9 @@ public class BookDetailController {
     private Text loggedUser;
     @FXML
     private HBox addBookMenu;
-    private final FirestoreService firestoreService;
     private String bookId;
     private Book book;
     private int count = 1;
-
-    /**
-     * Constructs a {@code BookDetailController} and initializes the Firestore service.
-     */
-    public BookDetailController() {
-        this.firestoreService = new FirestoreService(); // Initialize Firestore service
-    }
 
     /**
      * Sets the selected book and loads its details into the UI.

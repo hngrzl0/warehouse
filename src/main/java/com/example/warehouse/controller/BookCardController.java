@@ -2,6 +2,7 @@ package com.example.warehouse.controller;
 
 import com.example.warehouse.model.Book;
 import com.example.warehouse.model.Cart;
+import com.example.warehouse.screen.BookDetailScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -55,9 +56,9 @@ public class BookCardController {
         try {
             Parent bookDetailRoot = loader.load();
 
-            BookDetailController bookDetailController = loader.getController();
+            BookDetailScreen bookDetailScreen = loader.getController();
             // Pass the book ID to the next screen
-            bookDetailController.setBookId(book);
+            bookDetailScreen.setBookId(book);
 
             Stage stage = (Stage) bookCard.getScene().getWindow();
             Scene scene = new Scene(bookDetailRoot);
