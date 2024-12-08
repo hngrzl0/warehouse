@@ -81,14 +81,14 @@ public class BookDetailScreen {
         User currentUser = UserSession.getInstance().getUser();
         System.out.println("Logged in as a role of: " + currentUser.getRole());
         loggedUser.setText(currentUser.getName());
-        if(Objects.equals(currentUser.getRole(), "user")){
-            addBookMenu.setVisible(false);
-        }
-        else {
-            addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
+
+        addBookMenu.setVisible(false);
+        if(Objects.equals(currentUser.getRole(), "admin")){
+            addBookMenu.setVisible(true);
             btnCart.setVisible(false);
             buyBookHbox.setVisible(false);
         }
+
         try {
             // Fetch the full details of the book using the bookId
             System.out.println("Book Detail of: " + book.getId());
