@@ -1,6 +1,7 @@
 package com.example.warehouse.screen;
 
 import com.example.warehouse.controller.BookTileController;
+import com.example.warehouse.controller.CartScreenController;
 import com.example.warehouse.model.Book;
 import com.example.warehouse.model.Cart;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class CartScreen {
     private Text amount;
 
     @FXML
-    private TextField addressTf;
+    public TextField addressTf;
 
     @FXML
     private Button deliveryBtn;
@@ -57,7 +58,10 @@ public class CartScreen {
     @FXML
     private Button logoutButton;
 
-    private List<BookWithQuantity> cartScreenBooks = new ArrayList<BookWithQuantity>();
+    @FXML
+    private Text homePageTxt;
+
+    private List<BookWithQuantity> cartScreenBooks = new ArrayList<>();
     private Map<String, BookTileController> bookTileMap = new HashMap<>();
     private double totalAmount = 0;
 
@@ -67,40 +71,24 @@ public class CartScreen {
      */
     @FXML
     public void initialize() {
-        loadBooks();
-        displayBooks();
-        updateTotalAmount();
-        deliveryBtn.setOnAction(e -> proceedToPayment());
-        cancelBtn.setOnAction(e -> cancelOrder());
+        CartScreenController controller = new CartScreenController();
+        cartScreenBooks = controller.loadBooks();
+        displayBooks(cartScreenBooks);
+        updateTotalAmount(cartScreenBooks);
+        deliveryBtn.setOnAction(e -> controller.proceedToPayment(addressTf.getText(),amount.getText()));
+        cancelBtn.setOnAction(e -> controller.cancelOrder(cartScreenBooks,this));
     }
-
-    /**
-     * Loads books from the {@link Cart} into the screen.
-     */
-    private void loadBooks() {
-        cartScreenBooks.clear();
-        for (Book cartBook : Cart.getInstance().getBooks()) {
-            BookWithQuantity screenBook =
-                    new BookWithQuantity(cartBook);
-            screenBook.setQuantity(cartBook.getCount());
-            cartScreenBooks.add(screenBook);
-        }
-//        cartScreenBooks.addAll(cartScreenBooks);
-    }
-
-
     /**
      * Displays the loaded books in the cart.
      */
-    private void displayBooks() {
+    public void displayBooks(List<BookWithQuantity> cartScreenBooks) {
         tiles.getChildren().clear();
-        bookTileMap.clear();
+
 
         for (BookWithQuantity cartScreenBook : cartScreenBooks) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/tile_book.fxml"));
                 Parent bookTile = loader.load();
-
                 BookTileController controller = loader.getController();
                 controller.setBookDetails(cartScreenBook.book.getTitle(), cartScreenBook.book.getPrice(), cartScreenBook.book.getPictureUrl());
                 controller.setQuantity(cartScreenBook.getQuantity());
@@ -111,7 +99,7 @@ public class CartScreen {
                     cartScreenBook.increaseQuantity();
                     controller.setQuantity(cartScreenBook.getQuantity());
                     controller.updateTotalPrice();
-                    updateTotalAmount();
+                    updateTotalAmount(cartScreenBooks);
                 });
 
                 controller.decrementButton.setOnAction(e -> {
@@ -125,11 +113,11 @@ public class CartScreen {
                         tiles.getChildren().remove(bookTile);
                         Cart.getInstance().deleteBook(cartScreenBook.book);
                     }
-                    updateTotalAmount();
+                    updateTotalAmount(cartScreenBooks);
                 });
 
                 tiles.getChildren().add(bookTile);
-                bookTileMap.put(cartScreenBook.book.getTitle(), controller);
+                //bookTileMap.put(cartScreenBook.book.getTitle(), controller);
             } catch (IOException e) {
                 Logger logger = Logger.getLogger(getClass().getName());
                 logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
@@ -140,41 +128,11 @@ public class CartScreen {
     /**
      * Updates the total amount of the cart based on the current list of books.
      */
-    private void updateTotalAmount() {
-        totalAmount = cartScreenBooks.stream()
-                .mapToDouble(book -> book.book.getPrice() * book.getQuantity())
+    public void updateTotalAmount(List<BookWithQuantity> cartScreenBooks){
+        double totalAmount = cartScreenBooks.stream()
+                .mapToDouble(book -> book.getBook().getPrice() * book.getQuantity())
                 .sum();
         amount.setText(String.format("%.0f₮", totalAmount));
-    }
-
-    /**
-     * Proceeds to the payment screen after validating the delivery address.
-     */
-    private void proceedToPayment() {
-        String address = addressTf.getText();
-        if (address.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Missing Address");
-            alert.setHeaderText("Delivery Address Required");
-            alert.setContentText("Please enter a delivery address to proceed.");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Payment Confirmation");
-            alert.setHeaderText("Proceeding to Payment");
-            alert.setContentText("Delivery address: " + address + "\nTotal amount: " + totalAmount + "₮");
-            alert.showAndWait();
-        }
-    }
-    /**
-     * Cancels the current order, resetting the cart to its initial state.
-     */
-    private void cancelOrder() {
-        System.out.println("Order canceled.");
-        cartScreenBooks.forEach(book -> book.setQuantity(1));
-        addressTf.clear();
-        displayBooks();
-        updateTotalAmount();
     }
 
     /**
@@ -195,7 +153,6 @@ public class CartScreen {
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
-
     /**
      * Handles the logout button click event, redirecting to the login screen.
      */
@@ -217,6 +174,23 @@ public class CartScreen {
         }
     }
 
+    @FXML
+    public void handleHomePage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_home.fxml")
+            );
+            Parent loginScreen = loader.load();
+            Stage currentStage = (Stage) homePageTxt.getScene().getWindow();
+            Scene loginScene = new Scene(loginScreen);
+            currentStage.setScene(loginScene);
+            currentStage.show();
+            System.out.println("User logged out and redirected to the login screen.");
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while navigating to the login screen", e);
+        }
+    }
     // Inner class to represent a book
     public static class BookWithQuantity {
         private Book book;

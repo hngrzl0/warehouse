@@ -215,7 +215,7 @@
                               <Image url="@../assets/icon_home_selected.png" />
                            </image>
                         </ImageView>
-                        <Text fill="#f38b40" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Page">
+                        <Text fx:id="homePageTxt" fill="#f38b40" onMouseClicked="#handleHomePage" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Page">
                            <font>
                               <Font name="Roboto Regular" size="15.0" />
                            </font>
