@@ -21,7 +21,7 @@
                     <children>
                         <Text fill="#f38b40" strokeType="OUTSIDE" strokeWidth="0.0" text="Warehouse">
                             <font>
-                                <Font name="Roboto Bold" size="19.0" />
+                                <Font name="System Bold" size="19.0" />
                             </font>
                         </Text>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
@@ -120,13 +120,13 @@
                                                     <Insets left="8.0" />
                                                 </HBox.margin>
                                             </ImageView>
-                                            <Label fx:id="searchField" prefHeight="41.0" prefWidth="205.0" style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" text="Хайх ном..." textFill="#8d8d8d" />
+                                            <Label fx:id="searchField" prefHeight="41.0" prefWidth="205.0" style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" text="Search book..." textFill="#8d8d8d" />
 
                                         </children>
                                     </HBox>
                                     <HBox spacing="9.0">
                                         <children>
-                                            <HBox alignment="CENTER_LEFT" prefHeight="42.0" spacing="7.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
+                                            <HBox fx:id="btnCart" alignment="CENTER_LEFT" onMouseClicked="#handleCartButton" prefHeight="42.0" spacing="7.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
                                                 <children>
                                                     <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                                         <image>
@@ -192,17 +192,41 @@
                                              </font>
                                           </Text>
                                           <Label fx:id="bookDescription" text="description" />
-                                          <Line endX="228.9647674560547" endY="1.9913911819458008E-4" startX="-100.0" stroke="#d3d3d3" />
+                                          <Line endX="289.4927978515625" endY="-1.8309355073142797E-4" startX="-100.0" stroke="#d3d3d3" />
                                           <Text fx:id="bookPrice" strokeType="OUTSIDE" strokeWidth="0.0" text="10000">
                                              <font>
                                                 <Font name="System Bold" size="23.0" />
                                              </font>
                                           </Text>
-                                          <Line endX="228.9647674560547" endY="1.9913911819458008E-4" layoutX="111.0" layoutY="79.0" startX="-100.0" stroke="#d3d3d3" />
-                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                          <Line endX="292.6927490234375" endY="-6.721019599353895E-5" layoutX="111.0" layoutY="79.0" startX="-100.0" stroke="#d3d3d3" />
+                                          <HBox prefHeight="50.0" prefWidth="466.0" spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: F38B40;" text="Button" textFill="WHITE" />
-                                                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: white; -fx-border-color: E5E5E5; -fx-border-width: 1.5;" text="Button" />
+                                                <Button fx:id="buyButton" mnemonicParsing="false" onMouseClicked="#handleBuy" prefWidth="100.0" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: F38B40;" text="Buy" textFill="WHITE" />
+                                                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="96.0" spacing="10" style="-fx-border-color: lightgray; -fx-border-radius: 100; -fx-padding: 5; -fx-background-radius: 50;">
+                                                   <children>
+                                                      <Button fx:id="decreaseButton" onMouseClicked="#handleDecreaseCount" style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="-">
+                                                         <HBox.margin>
+                                                            <Insets left="2.0" />
+                                                         </HBox.margin>
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Label fx:id="countLabel" style="-fx-font-size: 16;" text="1" />
+                                                      <Button fx:id="increaseButton" onMouseClicked="#handleIncreaseCount" style="-fx-font-size: 16; -fx-background-color: transparent; -fx-border-color: transparent;" text="+">
+                                                         <HBox.margin>
+                                                            <Insets right="6.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </HBox>
+                                                <Button fx:id="addToCartButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleAddToCart" prefWidth="100.0" style="-fx-border-radius: 300; -fx-background-radius: 300; -fx-background-color: white; -fx-border-color: E5E5E5; -fx-border-width: 1.5;" text="Add to cart">
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin></Button>
                                              </children>
                                           </HBox>
                                        </children>
@@ -213,7 +237,15 @@
                                  </padding>
                               </HBox>
                               <HBox />
-                              <Text fill="#6f6f6f" layoutX="38.0" layoutY="44.0" onMouseClicked="#handleBackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Буцах" />
+                              <Button layoutX="39.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#handleBackButton" style="-fx-background-color: transparant;" text="Back" textFill="#6f6f6f">
+                                 <graphic>
+                                    <ImageView fitHeight="14.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/icon_back.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>

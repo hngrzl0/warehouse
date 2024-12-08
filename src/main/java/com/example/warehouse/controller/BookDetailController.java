@@ -1,11 +1,13 @@
 package com.example.warehouse.controller;
 
 import com.example.warehouse.model.Book;
+import com.example.warehouse.model.Cart;
 import com.example.warehouse.service.FirestoreService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -30,11 +32,21 @@ public class BookDetailController {
     @FXML
     private Button logoutButton;// Text for book price
     @FXML
-    private HBox addToCartButton;        // Button for adding book to the cart
-
+    private Label countLabel;
+    @FXML
+    private Button decreaseButton;
+    @FXML
+    private Button increaseButton;
+    @FXML
+    private Button buyButton;
+    @FXML
+    private Button addToCartButton;
+    @FXML
+    private HBox btnCart;
     private FirestoreService firestoreService;
     private String bookId;
-    private Book book;// Book ID for fetching the book details
+    private Book book;
+    private int count = 1;
 
     public BookDetailController() {
         this.firestoreService = new FirestoreService(); // Initialize Firestore service
@@ -46,24 +58,6 @@ public class BookDetailController {
         this.bookId = book.getId();
         loadBookDetails();
     }
-
-    // Load the book details from the Firestore or other data source
-//    private void loadBookDetails() {
-//        try {
-//            // Fetch the full details of the book using the bookId
-//            Book book = firestoreService.getBookById(bookId);
-//            System.out.println("Book Detail of: " + book.getId());// Replace this with your actual method for fetching book by ID
-//
-//            // Set the UI components with the book details
-//            bookTitle.setText(book.getTitle());
-//            bookDescription.setText(book.getDescription());
-//            bookPrice.setText(String.valueOf(book.getPrice()));
-//            bookImage.setImage(new Image(book.getPictureUrl()));  // Set the book image
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void loadBookDetails() {
         try {
@@ -80,12 +74,65 @@ public class BookDetailController {
             e.printStackTrace();
         }
     }
-
     @FXML
-    private void handleAddToCart() {
-        System.out.println("Added to cart: " + bookId);
+    private void handleDecreaseCount() {
+        if (count > 1) {
+            count--;
+            countLabel.setText(String.valueOf(count));
+        }
+    }
+    @FXML
+    private void handleIncreaseCount() {
+        count++;
+        countLabel.setText(String.valueOf(count));
     }
 
+    @FXML
+    private void handleBuy() {
+        // Show an alert indicating a successful purchase
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Purchase Successful");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully bought the book!");
+        alert.showAndWait();
+
+        //reset the count
+        count = 1;
+        countLabel.setText(String.valueOf(count));
+    }
+    @FXML
+    private void handleAddToCart() {
+        for (int i = 0; i < count; i++) {
+            Cart.getInstance().addBook(book); // Add the book to the cart multiple times based on count
+        }
+
+        // Show a confirmation message
+        System.out.println("Added to cart: " + bookId);
+        System.out.println(count + " copies of the book added to the cart!");
+
+        // Reset the count after adding to the cart
+        count = 1;
+        countLabel.setText(String.valueOf(count));
+    }
+    @FXML
+    private void handleCartButton(){
+        try {
+            // Load the next screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_cart.fxml"));
+            Parent newRoot = loader.load();
+
+            // Get the current stage and set the new scene
+            Stage stage = (Stage) bookImage.getScene().getWindow(); // Get the current stage
+            Scene scene = new Scene(newRoot);
+            stage.setScene(scene); // Set the new scene
+            stage.show(); // Show the new scene
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void handleAddBook(MouseEvent mouseEvent) {
         try {
             // Load the next screen FXML
