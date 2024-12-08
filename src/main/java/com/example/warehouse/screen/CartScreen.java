@@ -7,18 +7,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CartScreen {
 
@@ -37,7 +39,12 @@ public class CartScreen {
     @FXML
     private Button cancelBtn;
 
-    private List<Book> books = new ArrayList<Book>(); // List of books
+    @FXML
+    private Button logoutButton;
+
+    private List<Book> books = new ArrayList<Book>();
+    private Map<String, BookTileController> bookTileMap = new HashMap<>();
+    // List of books
     private double totalAmount = 0; // Total cart amount
 
     @FXML
@@ -47,47 +54,60 @@ public class CartScreen {
         displayBooks();
         updateTotalAmount();
 
+
         deliveryBtn.setOnAction(e -> proceedToPayment());
         cancelBtn.setOnAction(e -> cancelOrder());
     }
 
     private void loadBooks() {
-        // Add sample books
-
-        for(com.example.warehouse.model.Book book : Cart.getInstance().getBooks()){
-            Book tempBook = new Book(book.getTitle(), book.getPrice(), book.getPictureUrl());
-            books.add(tempBook);
+        books.clear();
+        List<com.example.warehouse.screen.CartScreen.Book> cartBooks = new ArrayList<>();
+        for (com.example.warehouse.model.Book modelBook : Cart.getInstance().getBooks()) {
+            com.example.warehouse.screen.CartScreen.Book screenBook =
+                    new com.example.warehouse.screen.CartScreen.Book(modelBook.getTitle(), modelBook.getPrice(), modelBook.getPictureUrl());
+            screenBook.setQuantity(modelBook.getCount());
+            cartBooks.add(screenBook);
         }
+        books.addAll(cartBooks); // Now it will work correctly
     }
 
     private void displayBooks() {
-        // Clear any existing tiles
-        tiles.getChildren().clear();
+        tiles.getChildren().clear(); // Clear previous tiles to avoid duplication
+        bookTileMap.clear();
 
         for (Book book : books) {
             try {
-                // Load BookTile.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/tile_book.fxml"));
                 Parent bookTile = loader.load();
 
-                // Get the controller and set book details
                 BookTileController controller = loader.getController();
                 controller.setBookDetails(book.getTitle(), book.getPrice(), book.getImage());
+                controller.setQuantity(book.getQuantity());
+                controller.updateTotalPrice();
 
-                // Add listeners for quantity changes
+                // Add listeners for buttons
                 controller.incrementButton.setOnAction(e -> {
                     book.increaseQuantity();
+                    controller.setQuantity(book.getQuantity());
+                    controller.updateTotalPrice();
                     updateTotalAmount();
                 });
+
                 controller.decrementButton.setOnAction(e -> {
                     if (book.getQuantity() > 1) {
                         book.decreaseQuantity();
-                        updateTotalAmount();
+                        controller.setQuantity(book.getQuantity());
+                        controller.updateTotalPrice();
+                    } else {
+                        books.remove(book);
+                        bookTileMap.remove(book.getTitle());
+                        tiles.getChildren().remove(bookTile);
                     }
+                    updateTotalAmount();
                 });
 
-                // Add the tile to the VBox
                 tiles.getChildren().add(bookTile);
+                bookTileMap.put(book.getTitle(), controller);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -104,11 +124,17 @@ public class CartScreen {
     private void proceedToPayment() {
         String address = addressTf.getText();
         if (address.isEmpty()) {
-            System.out.println("Please enter a delivery address.");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Missing Address");
+            alert.setHeaderText("Delivery Address Required");
+            alert.setContentText("Please enter a delivery address to proceed.");
+            alert.showAndWait();
         } else {
-            System.out.println("Proceeding to payment.");
-            System.out.println("Delivery address: " + address);
-            System.out.println("Total amount: " + totalAmount + "₮");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Payment Confirmation");
+            alert.setHeaderText("Proceeding to Payment");
+            alert.setContentText("Delivery address: " + address + "\nTotal amount: " + totalAmount + "₮");
+            alert.showAndWait();
         }
     }
 
@@ -133,6 +159,30 @@ public class CartScreen {
             stage.show(); // Show the new scene
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onLogoutButtonClick() {
+        try {
+            // Load the login screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_login.fxml"));
+            Parent loginScreen = loader.load();
+
+            // Get the current stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+
+            // Set the new scene to the login screen
+            Scene loginScene = new Scene(loginScreen);
+            currentStage.setScene(loginScene);
+
+            // Show the new scene
+            currentStage.show();
+
+            System.out.println("User logged out and redirected to the login screen.");
+        } catch (IOException e) {
+            System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
             e.printStackTrace();
         }
     }

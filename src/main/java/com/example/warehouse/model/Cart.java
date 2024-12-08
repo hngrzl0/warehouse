@@ -1,17 +1,17 @@
 package com.example.warehouse.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Cart {
-    private List<Book> books;
     private static Cart instance;
+    private final Map<String, Book> cartBooks = new HashMap<>(); // Use a map for unique titles
 
     private Cart() {
-        books = new ArrayList<>();
     }
 
-    // Singleton instance
     public static Cart getInstance() {
         if (instance == null) {
             instance = new Cart();
@@ -19,19 +19,23 @@ public class Cart {
         return instance;
     }
 
+    public void addBookWithQuantity(Book book, int quantity) {
+        if (cartBooks.containsKey(book.getTitle())) {
+            // If the book already exists, update its quantity
+            Book existingBook = cartBooks.get(book.getTitle());
+            existingBook.setCount(existingBook.getCount() + quantity);
+        } else {
+            // Otherwise, add a new book to the cart
+            book.setCount(quantity);
+            cartBooks.put(book.getTitle(), book);
+        }
+    }
+
     public List<Book> getBooks() {
-        return books;
+        return new ArrayList<>(cartBooks.values());
     }
 
-    public void addBook(Book book) {
-        books.add(book);
-    }
-
-    public void removeBook(Book book) {
-        books.remove(book);
-    }
-
-    public void clear() {
-        books.clear();
+    public void clearCart() {
+        cartBooks.clear();
     }
 }

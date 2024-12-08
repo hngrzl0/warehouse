@@ -43,6 +43,6 @@ public class BookCardController {
 
     public void handleAddToCart(MouseEvent mouseEvent) {
         Cart cart = Cart.getInstance();
-        cart.addBook(book);
+        cart.addBookWithQuantity(book, 1);
     }
 }

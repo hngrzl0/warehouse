@@ -102,12 +102,11 @@ public class BookDetailController {
     }
     @FXML
     private void handleAddToCart() {
-        for (int i = 0; i < count; i++) {
-            Cart.getInstance().addBook(book); // Add the book to the cart multiple times based on count
-        }
+        // Add the book with the desired count to the cart
+        Cart.getInstance().addBookWithQuantity(book, count);
 
         // Show a confirmation message
-        System.out.println("Added to cart: " + bookId);
+        System.out.println("Added to cart: " + book.getTitle());
         System.out.println(count + " copies of the book added to the cart!");
 
         // Reset the count after adding to the cart

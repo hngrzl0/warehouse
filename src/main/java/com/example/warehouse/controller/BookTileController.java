@@ -29,32 +29,16 @@ public class BookTileController {
     @FXML
     public Button decrementButton;
 
-    private int quantity = 1;
+    private int quantity;
     private double price = 10000; // Example price (in your case, 10'000₮)
 
     @FXML
     public void initialize() {
         updateTotalPrice();
-
-//        incrementButton.setOnAction(e -> {
-//            quantity++;
-//            updateQuantity();
-//        });
-//
-//        decrementButton.setOnAction(e -> {
-//            if (quantity > 1) {
-//                quantity--;
-//                updateQuantity();
-//            }
-//        });
     }
 
-    private void updateQuantity() {
-        quantityLabel.setText(String.valueOf(quantity));
-        updateTotalPrice();
-    }
 
-    private void updateTotalPrice() {
+    public void updateTotalPrice() {
         totalPriceLabel.setText(String.format("%.0f₮", quantity * price));
     }
 
@@ -62,7 +46,12 @@ public class BookTileController {
         this.bookTitle.setText(title);
         this.price = price;
         this.bookPrice.setText(String.format("%.0f₮", price));
-//        this.bookImage.setImage(image);
-        updateTotalPrice();
+        // This line can be used to set the image, ensure it's a valid image URL
+//        this.bookImage.setImage(new Image(image));
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+        quantityLabel.setText(String.valueOf(quantity));
     }
 }
