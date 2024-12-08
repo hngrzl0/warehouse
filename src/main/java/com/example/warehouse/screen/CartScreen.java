@@ -1,7 +1,6 @@
 package com.example.warehouse.screen;
 
 import com.example.warehouse.controller.BookTileController;
-import com.example.warehouse.model.Book;
 import com.example.warehouse.model.Cart;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,21 +10,36 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * Controller for the cart screen, which manages the display and handling of books in the shopping cart.
+ * <p>
+ * The {@code CartScreen} class provides an interface for users to view, update, and manage their shopping cart. It allows users to add, remove, and modify
+ * the quantity of books in the cart. The cart's total amount is updated dynamically, and users can proceed to payment or cancel the order.
+ * </p>
+ * <p>
+ * The class interacts with the {@link Cart} model to retrieve the list of books and uses a {@link BookTileController} to display each book's details.
+ * It also provides a UI for entering a delivery address and confirmation messages during the checkout process.
+ * </p>
+ * @author Khongorzul, Margad
+ * @see BookTileController
+ * @version 1.0
+ * @since 2024-12-08
+ */
 public class CartScreen {
 
     @FXML
-    private VBox tiles; // VBox to display book tiles
+    private VBox tiles;
 
     @FXML
     private Text amount;
@@ -44,21 +58,24 @@ public class CartScreen {
 
     private List<Book> books = new ArrayList<Book>();
     private Map<String, BookTileController> bookTileMap = new HashMap<>();
-    // List of books
-    private double totalAmount = 0; // Total cart amount
+    private double totalAmount = 0;
 
+    /**
+     * Initializes the cart screen by loading the books from the {@link Cart} instance and displaying them.
+     * It sets up the UI elements and binds the buttons to their respective actions.
+     */
     @FXML
     public void initialize() {
-        // Initialize the list of books
         loadBooks();
         displayBooks();
         updateTotalAmount();
-
-
         deliveryBtn.setOnAction(e -> proceedToPayment());
         cancelBtn.setOnAction(e -> cancelOrder());
     }
 
+    /**
+     * Loads books from the {@link Cart} into the screen.
+     */
     private void loadBooks() {
         books.clear();
         List<com.example.warehouse.screen.CartScreen.Book> cartBooks = new ArrayList<>();
@@ -68,13 +85,16 @@ public class CartScreen {
             screenBook.setQuantity(modelBook.getCount());
             cartBooks.add(screenBook);
         }
-        books.addAll(cartBooks); // Now it will work correctly
+        books.addAll(cartBooks);
     }
 
-    private void displayBooks() {
-        tiles.getChildren().clear(); // Clear previous tiles to avoid duplication
-        bookTileMap.clear();
 
+    /**
+     * Displays the loaded books in the cart.
+     */
+    private void displayBooks() {
+        tiles.getChildren().clear();
+        bookTileMap.clear();
         for (Book book : books) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/tile_book.fxml"));
@@ -109,11 +129,15 @@ public class CartScreen {
                 tiles.getChildren().add(bookTile);
                 bookTileMap.put(book.getTitle(), controller);
             } catch (IOException e) {
-                e.printStackTrace();
+                Logger logger = Logger.getLogger(getClass().getName());
+                logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
             }
         }
     }
 
+    /**
+     * Updates the total amount of the cart based on the current list of books.
+     */
     private void updateTotalAmount() {
         totalAmount = books.stream()
                 .mapToDouble(book -> book.getPrice() * book.getQuantity())
@@ -121,6 +145,9 @@ public class CartScreen {
         amount.setText(String.format("%.0f₮", totalAmount));
     }
 
+    /**
+     * Proceeds to the payment screen after validating the delivery address.
+     */
     private void proceedToPayment() {
         String address = addressTf.getText();
         if (address.isEmpty()) {
@@ -137,7 +164,9 @@ public class CartScreen {
             alert.showAndWait();
         }
     }
-
+    /**
+     * Cancels the current order, resetting the cart to its initial state.
+     */
     private void cancelOrder() {
         System.out.println("Order canceled.");
         books.forEach(book -> book.setQuantity(1));
@@ -146,44 +175,43 @@ public class CartScreen {
         updateTotalAmount();
     }
 
+    /**
+     * Handles the cancel button click event, redirecting to the home screen.
+     */
     public void handleCancel(MouseEvent mouseEvent) {
         try {
-            // Load the next screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_home.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_home.fxml")
+            );
             Parent newRoot = loader.load();
-
-            // Get the current stage and set the new scene
-            Stage stage = (Stage) tiles.getScene().getWindow(); // Get the current stage
+            Stage stage = (Stage) tiles.getScene().getWindow();
             Scene scene = new Scene(newRoot);
-            stage.setScene(scene); // Set the new scene
-            stage.show(); // Show the new scene
-
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
+    /**
+     * Handles the logout button click event, redirecting to the login screen.
+     */
     @FXML
     public void onLogoutButtonClick() {
         try {
-            // Load the login screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_login.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_login.fxml")
+            );
             Parent loginScreen = loader.load();
-
-            // Get the current stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-
-            // Set the new scene to the login screen
             Scene loginScene = new Scene(loginScreen);
             currentStage.setScene(loginScene);
-
-            // Show the new scene
             currentStage.show();
-
             System.out.println("User logged out and redirected to the login screen.");
         } catch (IOException e) {
-            System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while navigating to the login screen", e);
         }
     }
 
@@ -226,7 +254,6 @@ public class CartScreen {
                 this.quantity--;
             }
         }
-
         public void setQuantity(int quantity) {
             this.quantity = quantity;
         }
