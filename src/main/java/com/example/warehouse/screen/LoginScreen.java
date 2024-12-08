@@ -65,12 +65,7 @@ public class LoginScreen {
             System.out.println("Validating username and password...");
             User user = controller.validateUser(username, password);
             if (user != null) {
-                if(user.getRole().equals("admin")){
-                    navigateToBookForum();
-                }
-                else if(user.getRole().equals("user")){
-                    navigateToHomeScreen();
-                }
+                navigateToHomeScreen();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Wrong username or password!");
             }
@@ -93,23 +88,6 @@ public class LoginScreen {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    /**
-     * Navigates the admin to the Book Forum Page.
-     * This method loads the Book Forum FXML layout and updates the current stage scene.
-     */
-    private void navigateToBookForum() {
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(Application.class.getResource("layout/screen_home.fxml")));
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            System.out.println("Navigating to Book Forum Page...");
-        } catch (Exception e) {
-            System.err.println("Error occurred while navigating to Book Forum Page: " + e.getMessage());
-
-        }
     }
 
     /**

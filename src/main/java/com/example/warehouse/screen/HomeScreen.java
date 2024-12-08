@@ -103,10 +103,10 @@ import java.util.stream.Collectors;
             System.out.println("Logged in as a role of: " + usrCurrentUser.getRole());
             txtLoggedUser.setText(usrCurrentUser.getName());
 
-            if (Objects.equals(usrCurrentUser.getRole(), "user")) {
-                hbxAddBookMenu.setVisible(false);
-            } else {
-                hbxAddBookMenu.setVisible(Objects.equals(usrCurrentUser.getRole(), "admin"));
+
+            hbxAddBookMenu.setVisible(false);
+            if(Objects.equals(usrCurrentUser.getRole(), "admin")){
+                hbxAddBookMenu.setVisible(true);
                 hbxBtnCart.setVisible(false);
             }
         }
