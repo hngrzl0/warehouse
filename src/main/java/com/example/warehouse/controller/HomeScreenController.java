@@ -29,7 +29,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class ControllerHome {
+public class HomeScreenController {
     @FXML
     private GridPane books; // Reference to the GridPane in main.fxml
 
@@ -43,6 +43,9 @@ public class ControllerHome {
     private HBox addBookMenu;
 
     @FXML
+    private HBox btnCart;
+
+    @FXML
     private ComboBox<String> genreComboBox; // Reference to the genre combo box
     private User user;
 
@@ -51,7 +54,7 @@ public class ControllerHome {
     private final FirestoreService firestoreService;
     private ObservableList<Book> allBooks;
 
-    public ControllerHome() {
+    public HomeScreenController() {
         this.firestoreService = new FirestoreService(); // Initialize Firestore service
     }
 
@@ -89,7 +92,12 @@ public class ControllerHome {
         loggedUser.setText(currentUser.getName());
         if(Objects.equals(currentUser.getRole(), "user")){
             addBookMenu.setVisible(false);
-        } else addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
+        }
+        else {
+            addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
+            btnCart.setVisible(false);
+        }
+
 
     }
 
@@ -125,7 +133,7 @@ public class ControllerHome {
                     System.out.println(book.getTitle() + " added to cart!");
                 });
 
-                ControllerBookCard bookCardController = loader.getController();
+                BookCardController bookCardController = loader.getController();
                 bookCardController.setBook(book);
 
                 books.add(bookCard, column, row);

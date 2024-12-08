@@ -16,8 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Label?>
-<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.ControllerHome">
+<BorderPane prefHeight="748.0" prefWidth="1330.0" style="-fx-background-color: F0F1F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.warehouse.controller.HomeScreenController">
     <left>
         <VBox prefHeight="1080.0" prefWidth="258.0" BorderPane.alignment="CENTER">
             <children>
@@ -25,7 +24,7 @@
                     <children>
                         <Text fill="#f38b40" strokeType="OUTSIDE" strokeWidth="0.0" text="Warehouse">
                             <font>
-                                <Font name="Roboto Bold" size="19.0" />
+                                <Font name="System Bold" size="19.0" />
                             </font>
                         </Text>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
@@ -125,12 +124,12 @@
                                                         <Insets left="8.0" />
                                                     </HBox.margin>
                                                 </ImageView>
-                                                <TextField fx:id="searchField" prefHeight="26.0" prefWidth="209.0" promptText="Хайх ном..." style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" />
+                                                <TextField fx:id="searchField" prefHeight="26.0" prefWidth="209.0" promptText="Search book..." style="-fx-background-color: white; -fx-border: none; -fx-border-radius: 6;" />
                                             </children>
                                         </HBox>
                                         <HBox spacing="9.0">
                                             <children>
-                                                <HBox onMouseClicked="#handleGoToCart" alignment="CENTER_LEFT" prefHeight="42.0" spacing="7.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
+                                                <HBox fx:id="btnCart" alignment="CENTER_LEFT" onMouseClicked="#handleGoToCart" prefHeight="42.0" spacing="7.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-border-color: #E5E5E5; -fx-padding: 5; -fx-border-width: 1.5;">
                                                     <children>
                                                         <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>

@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ControllerBookDetail {
+public class BookDetailController {
 
     @FXML
     private ImageView bookImage;         // ImageView for displaying book image
@@ -36,7 +36,7 @@ public class ControllerBookDetail {
     private String bookId;
     private Book book;// Book ID for fetching the book details
 
-    public ControllerBookDetail() {
+    public BookDetailController() {
         this.firestoreService = new FirestoreService(); // Initialize Firestore service
     }
 

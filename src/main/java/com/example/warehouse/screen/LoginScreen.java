@@ -101,7 +101,7 @@ public class LoginScreen {
      */
     private void navigateToBookForum() {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(Application.class.getResource("layout/screen_forum.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(Application.class.getResource("layout/screen_home.fxml")));
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
