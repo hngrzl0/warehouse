@@ -97,7 +97,7 @@ public class BookDetailScreen {
             bookTitle.setText(book.getTitle());
             bookDescription.setText(book.getDescription());
             bookPrice.setText(book.getPrice() + "₮");
-            bookImage.setImage(new Image(book.getPictureUrl()));  // Set the book image
+            bookImage.setImage(new Image(book.getPictureUrl() , true));  // Set the book image
             currentUser = UserSession.getInstance().getUser();
             if(Objects.equals(currentUser.getRole(), "admin")){
                 btnCart.setVisible(false);

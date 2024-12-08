@@ -3,6 +3,7 @@ package com.example.warehouse.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -19,6 +20,8 @@ import javafx.scene.image.ImageView;
  */
 public class BookTileController {
 
+    @FXML
+    public ImageView bookImage;
     @FXML
     private Label bookTitle;
 
@@ -68,7 +71,7 @@ public class BookTileController {
         this.price = price;
         this.bookPrice.setText(String.format("%.0f₮", price));
         // This line can be used to set the image, ensure it's a valid image URL
-//        this.bookImage.setImage(new Image(image));
+        this.bookImage.setImage(new Image(image, true));
     }
 
     /**
