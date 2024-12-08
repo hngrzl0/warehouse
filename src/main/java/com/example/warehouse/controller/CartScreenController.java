@@ -25,7 +25,17 @@ public class CartScreenController {
         return cartScreenBooks;
     }
 
-    private double updateTotalAmount(List<CartScreen.BookWithQuantity> cartScreenBooks) {
+    public List<CartScreen.BookWithQuantity> loadBooks(List<Book> books) {
+        List<CartScreen.BookWithQuantity> cartScreenBooks = new ArrayList<>();
+        for (Book cartBook : books) {
+            CartScreen.BookWithQuantity screenBook = new CartScreen.BookWithQuantity(cartBook);
+            screenBook.setQuantity(cartBook.getCount());
+            cartScreenBooks.add(screenBook);
+        }
+        return cartScreenBooks;
+    }
+
+    public double updateTotalAmount(List<CartScreen.BookWithQuantity> cartScreenBooks) {
         return cartScreenBooks.stream()
                 .mapToDouble(book -> book.getBook().getPrice() * book.getQuantity())
                 .sum();
@@ -49,7 +59,7 @@ public class CartScreenController {
 
     public void cancelOrder(List<CartScreen.BookWithQuantity> cartScreenBooks, CartScreen cartScreen) {
         cartScreenBooks.forEach(book -> book.setQuantity(1));
-        cartScreen.addressTf.clear();
+//        cartScreen.addressTf.clear();
         cartScreen.displayBooks(cartScreenBooks);
         cartScreen.updateTotalAmount(cartScreenBooks);
     }
