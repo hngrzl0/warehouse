@@ -79,7 +79,7 @@
                                 <Insets left="10.0" right="10.0" />
                             </padding>
                         </VBox>
-                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutButtonClick" prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: transparant;" text="Log out" textAlignment="CENTER">
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutButtonClick" prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: transparent;" text="Log out" textAlignment="CENTER">
                             <font>
                                 <Font size="15.0" />
                             </font>

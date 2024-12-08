@@ -20,14 +20,14 @@
             <Insets bottom="24.0" right="24.0" top="24.0" />
          </padding>
          <HBox layoutX="10.0" layoutY="129.0" prefHeight="878.0" prefWidth="1035.0">
-            <VBox fx:id="tiles" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.2" prefWidth="594.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
+            <VBox fx:id="tiles" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.2" prefWidth="594.0" style="-fx-background-color: white; -fx-background-radius: 15px;">
                <padding>
                   <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
                </padding>
                <HBox.margin>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="30.0" />
                </HBox.margin>
-               <HBox prefHeight="100.0" prefWidth="200.0">
+               <HBox prefHeight="100.0" prefWidth="541.0">
                   <VBox.margin>
                      <Insets top="20.0" />
                   </VBox.margin>
@@ -80,7 +80,7 @@
                </HBox>
                <Line endX="470.0" startX="-100.0" stroke="#c2c7cc" />
             </VBox>
-            <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="647.2" prefWidth="376.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+            <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="647.2" prefWidth="376.0" style="-fx-background-color: white; -fx-background-radius: 15;">
                <padding>
                   <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
                </padding>
@@ -110,62 +110,50 @@
                      <Insets />
                   </VBox.margin>
                </HBox>
-               <Line endX="220.0" startX="-100.0" stroke="#c2c7cc">
+               <Line endX="232.49305725097656" endY="0.8928993344306946" startX="-100.0" stroke="#c2c7cc">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
                </Line>
-               <HBox prefHeight="118.0" prefWidth="326.0">
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="Book price">
-                     <HBox.margin>
-                        <Insets left="30.0" top="25.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount">
-                     <HBox.margin>
-                        <Insets left="-52.0" top="50.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="-43.0" top="75.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="0₮">
-                     <HBox.margin>
-                        <Insets left="200.0" right="-30.0" top="75.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="0%">
-                     <HBox.margin>
-                        <Insets left="18.0" right="-20.0" top="50.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="price" strokeType="OUTSIDE" strokeWidth="0.0" text="40'000₮">
-                     <HBox.margin>
-                        <Insets top="25.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="System Bold" size="11.0" />
-                     </font>
-                  </Text>
-               </HBox>
-               <Line endX="220.0" startX="-100.0" stroke="#c2c7cc" />
+               <VBox prefHeight="131.0" prefWidth="277.0" spacing="13.0">
+                  <children>
+                     <HBox spacing="209.0">
+                        <children>
+                           <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount">
+                              <font>
+                                 <Font size="11.0" />
+                              </font>
+                           </Text>
+                           <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="0%">
+                              <font>
+                                 <Font size="11.0" />
+                              </font>
+                           </Text>
+                        </children>
+                     </HBox>
+                     <HBox spacing="214.0">
+                        <children>
+                           <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery">
+                              <font>
+                                 <Font size="11.0" />
+                              </font>
+                           </Text>
+                           <Text fill="#c2c7cc" strokeType="OUTSIDE" strokeWidth="0.0" text="0₮">
+                              <font>
+                                 <Font size="11.0" />
+                              </font>
+                           </Text>
+                        </children>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </HBox>
+                  </children>
+                  <padding>
+                     <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                  </padding>
+               </VBox>
+               <Line endX="238.09303283691406" endY="-0.7071006894111633" startX="-100.0" stroke="#c2c7cc" />
                <HBox prefHeight="53.0" prefWidth="326.0">
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total">
                      <font>
@@ -254,7 +242,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </VBox>
-            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutButtonClick" prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: transparant;" text="Log out" textAlignment="CENTER">
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutButtonClick" prefHeight="34.0" prefWidth="133.0" style="-fx-background-color: transparent;" text="Log out" textAlignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -274,7 +262,7 @@
             <Insets bottom="50.0" left="30.0" right="30.0" top="50.0" />
          </padding>
          <BorderPane.margin>
-            <Insets bottom="50.0" left="30.0" right="30.0" top="50.0" />
+            <Insets bottom="50.0" left="30.0" top="50.0" />
          </BorderPane.margin>
       </VBox>
    </left>

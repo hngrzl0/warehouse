@@ -53,6 +53,10 @@ public class BookDetailController {
     private Label countLabel;
     @FXML
     private HBox btnCart;
+    @FXML
+    private Text loggedUser;
+    @FXML
+    private HBox addBookMenu;
     private final FirestoreService firestoreService;
     private String bookId;
     private Book book;
@@ -81,6 +85,16 @@ public class BookDetailController {
      * Loads the details of the selected book and updates the UI components.
      */
     private void loadBookDetails() {
+        User currentUser = UserSession.getInstance().getUser();
+        System.out.println("Logged in as a role of: " + currentUser.getRole());
+        loggedUser.setText(currentUser.getName());
+        if(Objects.equals(currentUser.getRole(), "user")){
+            addBookMenu.setVisible(false);
+        }
+        else {
+            addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
+            btnCart.setVisible(false);
+        }
         try {
             // Fetch the full details of the book using the bookId
             System.out.println("Book Detail of: " + book.getId());
@@ -90,7 +104,7 @@ public class BookDetailController {
             bookDescription.setText(book.getDescription());
             bookPrice.setText(book.getPrice() + "₮");
             bookImage.setImage(new Image(book.getPictureUrl()));  // Set the book image
-            User currentUser = UserSession.getInstance().getUser();
+            currentUser = UserSession.getInstance().getUser();
             if(Objects.equals(currentUser.getRole(), "admin")){
                 btnCart.setVisible(false);
             }
@@ -243,6 +257,21 @@ public class BookDetailController {
             currentStage.setScene(loginScene);
             currentStage.show();
             System.out.println("User logged out and redirected to the login screen.");
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
+        }
+    }
+
+    public void handleForumMenu(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_forum.fxml"));
+            Parent newRoot = loader.load();
+            Stage stage = (Stage) bookImage.getScene().getWindow();
+            Scene scene = new Scene(newRoot);
+            stage.setScene(scene);
+            stage.show();
+
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);

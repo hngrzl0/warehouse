@@ -69,6 +69,10 @@ public class Cart {
         return new ArrayList<>(cartBooks.values());
     }
 
+    public void deleteBook(Book book){
+        cartBooks.remove(book.getTitle(), book);
+    }
+
     /**
      * Clears all books from the cart.
      */

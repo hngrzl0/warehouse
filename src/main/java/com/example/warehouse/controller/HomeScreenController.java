@@ -118,7 +118,6 @@ public class HomeScreenController {
         else {
             addBookMenu.setVisible(Objects.equals(currentUser.getRole(), "admin"));
             btnCart.setVisible(false);
-
         }
 
 
@@ -151,13 +150,7 @@ public class HomeScreenController {
                 if(Objects.equals(currentUser.getRole(), "admin")){
                     addToCartButton.setVisible(false);
                 }
-                InputStream imageStream = getClass().getResourceAsStream(book.getPictureUrl());
-                if (imageStream == null) {
-                    System.err.println("Image not found: " + book.getPictureUrl());
-                    imageStream = getClass().getResourceAsStream("/com/example/warehouse/assets/book1.png");
-                }
-                assert imageStream != null;
-                bookImageView.setImage(new Image(imageStream));
+                bookImageView.setImage(new Image(book.getPictureUrl()));  // Set the book image
 
                 bookTitleLabel.setText(book.getTitle());
                 bookPriceLabel.setText("" + book.getPrice() + "₮");

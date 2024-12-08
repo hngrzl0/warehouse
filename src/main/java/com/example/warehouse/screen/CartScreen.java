@@ -1,6 +1,7 @@
 package com.example.warehouse.screen;
 
 import com.example.warehouse.controller.BookTileController;
+import com.example.warehouse.model.Book;
 import com.example.warehouse.model.Cart;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,7 +57,7 @@ public class CartScreen {
     @FXML
     private Button logoutButton;
 
-    private List<Book> books = new ArrayList<Book>();
+    private List<BookWithQuantity> cartScreenBooks = new ArrayList<BookWithQuantity>();
     private Map<String, BookTileController> bookTileMap = new HashMap<>();
     private double totalAmount = 0;
 
@@ -77,15 +78,14 @@ public class CartScreen {
      * Loads books from the {@link Cart} into the screen.
      */
     private void loadBooks() {
-        books.clear();
-        List<com.example.warehouse.screen.CartScreen.Book> cartBooks = new ArrayList<>();
-        for (com.example.warehouse.model.Book modelBook : Cart.getInstance().getBooks()) {
-            com.example.warehouse.screen.CartScreen.Book screenBook =
-                    new com.example.warehouse.screen.CartScreen.Book(modelBook.getTitle(), modelBook.getPrice(), modelBook.getPictureUrl());
-            screenBook.setQuantity(modelBook.getCount());
-            cartBooks.add(screenBook);
+        cartScreenBooks.clear();
+        for (Book cartBook : Cart.getInstance().getBooks()) {
+            BookWithQuantity screenBook =
+                    new BookWithQuantity(cartBook);
+            screenBook.setQuantity(cartBook.getCount());
+            cartScreenBooks.add(screenBook);
         }
-        books.addAll(cartBooks);
+//        cartScreenBooks.addAll(cartScreenBooks);
     }
 
 
@@ -95,39 +95,41 @@ public class CartScreen {
     private void displayBooks() {
         tiles.getChildren().clear();
         bookTileMap.clear();
-        for (Book book : books) {
+
+        for (BookWithQuantity cartScreenBook : cartScreenBooks) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/tile_book.fxml"));
                 Parent bookTile = loader.load();
 
                 BookTileController controller = loader.getController();
-                controller.setBookDetails(book.getTitle(), book.getPrice(), book.getImage());
-                controller.setQuantity(book.getQuantity());
+                controller.setBookDetails(cartScreenBook.book.getTitle(), cartScreenBook.book.getPrice(), cartScreenBook.book.getPictureUrl());
+                controller.setQuantity(cartScreenBook.getQuantity());
                 controller.updateTotalPrice();
 
                 // Add listeners for buttons
                 controller.incrementButton.setOnAction(e -> {
-                    book.increaseQuantity();
-                    controller.setQuantity(book.getQuantity());
+                    cartScreenBook.increaseQuantity();
+                    controller.setQuantity(cartScreenBook.getQuantity());
                     controller.updateTotalPrice();
                     updateTotalAmount();
                 });
 
                 controller.decrementButton.setOnAction(e -> {
-                    if (book.getQuantity() > 1) {
-                        book.decreaseQuantity();
-                        controller.setQuantity(book.getQuantity());
+                    if (cartScreenBook.getQuantity() > 1) {
+                        cartScreenBook.decreaseQuantity();
+                        controller.setQuantity(cartScreenBook.getQuantity());
                         controller.updateTotalPrice();
                     } else {
-                        books.remove(book);
-                        bookTileMap.remove(book.getTitle());
+                        cartScreenBooks.remove(cartScreenBook);
+                        bookTileMap.remove(cartScreenBook.book.getTitle());
                         tiles.getChildren().remove(bookTile);
+                        Cart.getInstance().deleteBook(cartScreenBook.book);
                     }
                     updateTotalAmount();
                 });
 
                 tiles.getChildren().add(bookTile);
-                bookTileMap.put(book.getTitle(), controller);
+                bookTileMap.put(cartScreenBook.book.getTitle(), controller);
             } catch (IOException e) {
                 Logger logger = Logger.getLogger(getClass().getName());
                 logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
@@ -139,8 +141,8 @@ public class CartScreen {
      * Updates the total amount of the cart based on the current list of books.
      */
     private void updateTotalAmount() {
-        totalAmount = books.stream()
-                .mapToDouble(book -> book.getPrice() * book.getQuantity())
+        totalAmount = cartScreenBooks.stream()
+                .mapToDouble(book -> book.book.getPrice() * book.getQuantity())
                 .sum();
         amount.setText(String.format("%.0f₮", totalAmount));
     }
@@ -169,7 +171,7 @@ public class CartScreen {
      */
     private void cancelOrder() {
         System.out.println("Order canceled.");
-        books.forEach(book -> book.setQuantity(1));
+        cartScreenBooks.forEach(book -> book.setQuantity(1));
         addressTf.clear();
         displayBooks();
         updateTotalAmount();
@@ -216,29 +218,17 @@ public class CartScreen {
     }
 
     // Inner class to represent a book
-    public static class Book {
-        private final String title;
-        private final double price;
-        private final String image;
+    public static class BookWithQuantity {
+        private Book book;
         private int quantity;
 
-        public Book(String title, double price, String image) {
-            this.title = title;
-            this.price = price;
-            this.image = image;
+        public BookWithQuantity(Book book) {
+            this.book = book;
             this.quantity = 1;
         }
 
-        public String getTitle() {
-            return title;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-
-        public String getImage() {
-            return image;
+        public Book getBook() {
+            return book;
         }
 
         public int getQuantity() {
