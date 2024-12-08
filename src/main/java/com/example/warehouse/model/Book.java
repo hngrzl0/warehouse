@@ -2,6 +2,18 @@ package com.example.warehouse.model;
 
 import java.util.Date;
 
+/**
+ * Represents a book model in the warehouse system.
+ * <p>
+ * The {@code Book} class contains information about a book, such as its title, author,
+ * published year, ISBN, price, stock count, description, picture URL, category, and ID.
+ * This class provides constructors, getters, and setters for managing book data.
+ * </p>
+ *
+ * @author Khongorzul
+ * @version 1.0
+ * @since 2024-11-25
+ */
 public class Book {
     private String title;
     private String author;
@@ -14,7 +26,19 @@ public class Book {
     private String category;
     private String id;
 
-    // Constructor
+    /**
+     * Constructs a {@code Book} with the specified details, excluding ID.
+     *
+     * @param title        the title of the book
+     * @param author       the author of the book
+     * @param publishedYear the year the book was published
+     * @param isbn         the International Standard Book Number (ISBN) of the book
+     * @param price        the price of the book
+     * @param count        the stock count of the book
+     * @param description  a brief description of the book
+     * @param pictureUrl   the URL of the book's picture
+     * @param category     the category or genre of the book
+     */
     public Book(String title, String author, String publishedYear, String isbn, double price, int count, String description, String pictureUrl, String category) {
         this.title = title;
         this.author = author;
