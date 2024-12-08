@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class FirestoreService {
 
-    private final Firestore db;
+    public final Firestore db;
 
     /**
      * Initializes a new instance of {@code FirestoreService} and connects to Firestore.
