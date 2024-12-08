@@ -18,13 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.lang.System.out;
 
 /**
  * Controller class for the Book Detail screen in the warehouse application.
@@ -102,6 +100,11 @@ public class BookDetailController {
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
+
+    /**
+     * Decreases the quantity count of the selected book.
+     * Ensures the count does not go below 1.
+     */
     @FXML
     private void handleDecreaseCount() {
         if (count > 1) {
@@ -109,134 +112,137 @@ public class BookDetailController {
             countLabel.setText(String.valueOf(count));
         }
     }
+
+    /**
+     * Increases the quantity count of the selected book.
+     */
     @FXML
     private void handleIncreaseCount() {
         count++;
         countLabel.setText(String.valueOf(count));
     }
 
+    /**
+     * Handles the purchase of the selected book.
+     * Displays a confirmation alert and resets the quantity count.
+     */
     @FXML
     private void handleBuy() {
-        // Show an alert indicating a successful purchase
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Purchase Successful");
         alert.setHeaderText(null);
         alert.setContentText("Successfully bought the book!");
         alert.showAndWait();
-
-        //reset the count
         count = 1;
         countLabel.setText(String.valueOf(count));
     }
+
+    /**
+     * Adds the selected book and quantity to the cart.
+     * Displays a confirmation message and resets the quantity count.
+     */
     @FXML
     private void handleAddToCart() {
-        // Add the book with the desired count to the cart
         Cart.getInstance().addBookWithQuantity(book, count);
-
-        // Show a confirmation message
-        out.println("Added to cart: " + book.getTitle());
-        out.println(count + " copies of the book added to the cart!");
-
-        // Reset the count after adding to the cart
+        System.out.println("Added to cart: " + book.getTitle());
+        System.out.println(count + " copies of the book added to the cart!");
         count = 1;
         countLabel.setText(String.valueOf(count));
     }
+    /**
+     * Navigates to the Cart screen.
+     */
     @FXML
     private void handleCartButton(){
         try {
-            // Load the next screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_cart.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_cart.fxml")
+            );
             Parent newRoot = loader.load();
-
-            // Get the current stage and set the new scene
-            Stage stage = (Stage) bookImage.getScene().getWindow(); // Get the current stage
+            Stage stage = (Stage) bookImage.getScene().getWindow();
             Scene scene = new Scene(newRoot);
-            stage.setScene(scene); // Set the new scene
-            stage.show(); // Show the new scene
-
-
+            stage.setScene(scene);
+            stage.show();
 
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
+
+
+    /**
+     * Navigates to the Book Forum screen.
+     */
     public void handleAddBook(MouseEvent mouseEvent) {
         try {
-            // Load the next screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_forum.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_forum.fxml")
+            );
             Parent newRoot = loader.load();
-
-            // Get the current stage and set the new scene
-            Stage stage = (Stage) bookImage.getScene().getWindow(); // Get the current stage
+            Stage stage = (Stage) bookImage.getScene().getWindow();
             Scene scene = new Scene(newRoot);
-            stage.setScene(scene); // Set the new scene
-            stage.show(); // Show the new scene
-
-
-
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
+    /**
+     * Navigates back to the Home screen.
+     */
     public void handleBackButton(MouseEvent mouseEvent) {
         try {
-            // Load the next screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_home.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_home.fxml")
+            );
             Parent newRoot = loader.load();
-
-            // Get the current stage and set the new scene
-            Stage stage = (Stage) bookImage.getScene().getWindow(); // Get the current stage
+            Stage stage = (Stage) bookImage.getScene().getWindow();
             Scene scene = new Scene(newRoot);
-            stage.setScene(scene); // Set the new scene
-            stage.show(); // Show the new scene
-
-
-
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
+    /**
+     * Navigates back to the Home screen for search.
+     */
     public void handleSearchBox(MouseEvent mouseEvent) {
         try {
-            // Load the next screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_home.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_home.fxml")
+            );
             Parent newRoot = loader.load();
-
-            // Get the current stage and set the new scene
-            Stage stage = (Stage) bookImage.getScene().getWindow(); // Get the current stage
+            Stage stage = (Stage) bookImage.getScene().getWindow();
             Scene scene = new Scene(newRoot);
-            stage.setScene(scene); // Set the new scene
-            stage.show(); // Show the new scene
-
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
+    /**
+     * Navigates to the Login screen.
+     */
     @FXML
     public void onLogoutButtonClick(){
         try {
-            // Load the login screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_login.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_login.fxml")
+            );
             Parent loginScreen = loader.load();
-
-            // Get the current stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-
-            // Set the new scene to the login screen
             Scene loginScene = new Scene(loginScreen);
             currentStage.setScene(loginScene);
-
-            // Show the new scene
             currentStage.show();
-
-            out.println("User logged out and redirected to the login screen.");
+            System.out.println("User logged out and redirected to the login screen.");
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
             logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);

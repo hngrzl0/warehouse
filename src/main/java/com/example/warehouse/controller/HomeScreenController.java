@@ -21,20 +21,32 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * Controller class responsible for managing the Home Screen of the warehouse application.
+ * <p>
+ * This class provides functionality to display books in a grid layout, search and filter books,
+ * handle user role-based visibility, and navigate to other screens like the forum, cart, or login.
+ * </p>
+ *
+ * @author Margad, Khongorzul
+ * @version 1.0
+ * @since 2024-12-08
+ */
 public class HomeScreenController {
     @FXML
-    private GridPane books; // Reference to the GridPane in main.fxml
+    private GridPane books;
 
     @FXML
-    private TextField searchField; // Reference to the search field
+    private TextField searchField;
 
     @FXML
     private Text loggedUser;
@@ -46,7 +58,7 @@ public class HomeScreenController {
     private HBox btnCart;
 
     @FXML
-    private ComboBox<String> genreComboBox; // Reference to the genre combo box
+    private ComboBox<String> genreComboBox;
     private User user;
 
     @FXML
@@ -54,37 +66,47 @@ public class HomeScreenController {
     private final FirestoreService firestoreService;
     private ObservableList<Book> allBooks;
 
+
+    /**
+     * Constructs a {@code HomeScreenController} and initializes the Firestore service.
+     */
     public HomeScreenController() {
-        this.firestoreService = new FirestoreService(); // Initialize Firestore service
+        this.firestoreService = new FirestoreService();
     }
 
+    /**
+     * Sets the logged-in user.
+     *
+     * @param user The currently logged-in {@link User}.
+     */
     public void setUser(User user){
         this.user = user;
     }
 
+    /**
+     * Initializes the controller, loads books, sets up filtering functionality, and configures UI
+     * elements based on the user's role.
+     */
     public void initialize() {
         try {
             // Get all books from Firestore
             List<Book> bookList = firestoreService.getAllBooks();
             allBooks = FXCollections.observableArrayList(bookList);
-
-            // Initialize ComboBox with genres (example, you can load these dynamically)
             if(genreComboBox != null){
                 genreComboBox.setItems(FXCollections.observableArrayList("All", "Fiction", "Non-Fiction", "Science", "Children's Books", "Adventure", "History", "Romance", "Fantasy"));
-                genreComboBox.setValue("All"); // Default value
-
+                genreComboBox.setValue("All");
             }else{
                 System.out.println("home combo box null");
             }
-
             // Set up the search and filter functionality
             genreComboBox.setOnAction(event -> filterBooks());
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> filterBooks());
-
+            searchField.textProperty()
+                    .addListener((observable, oldValue, newValue) -> filterBooks());
             // Load books into the GridPane
             loadBooks(allBooks);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
 
         User currentUser = UserSession.getInstance().getUser();
@@ -102,15 +124,23 @@ public class HomeScreenController {
 
     }
 
+
+    /**
+     * Loads a list of books into the GridPane.
+     *
+     * @param bookList A list of {@link Book} objects to be displayed.
+     */
     private void loadBooks(List<Book> bookList) {
-        books.getChildren().clear(); // Clear previous content
+        books.getChildren().clear();
         int column = 0;
         int row = 0;
         int maxColumns = 5;
 
         for (Book book : bookList) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/card_book.fxml"));
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/com/example/warehouse/layout/card_book.fxml")
+                );
                 Parent bookCard = loader.load();
                 User currentUser = UserSession.getInstance().getUser();
                 ImageView bookImageView = (ImageView) bookCard.lookup("#bookImage");
@@ -126,6 +156,7 @@ public class HomeScreenController {
                     System.err.println("Image not found: " + book.getPictureUrl());
                     imageStream = getClass().getResourceAsStream("/com/example/warehouse/assets/book1.png");
                 }
+                assert imageStream != null;
                 bookImageView.setImage(new Image(imageStream));
 
                 bookTitleLabel.setText(book.getTitle());
@@ -148,10 +179,15 @@ public class HomeScreenController {
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                Logger logger = Logger.getLogger(getClass().getName());
+                logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
             }
         }
     }
+
+    /**
+     * Filters the books displayed in the GridPane based on search input and selected genre.
+     */
     private void filterBooks() {
         String searchText = searchField.getText().toLowerCase();
         String selectedGenre = genreComboBox.getValue();
@@ -161,64 +197,68 @@ public class HomeScreenController {
                         (book.getTitle().toLowerCase().contains(searchText)))
                 .collect(Collectors.toList());
 
-        loadBooks(filteredBooks); // Reload the filtered books into the GridPane
+        loadBooks(filteredBooks);
     }
 
+    /**
+     * Navigates to the forum screen.
+     *
+     * @param mouseEvent The event triggered by clicking the forum menu.
+     */
     public void handleForumMenu(MouseEvent mouseEvent) {
         try {
-            // Load the next screen FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_forum.fxml"));
             Parent newRoot = loader.load();
-
-            // Get the current stage and set the new scene
-            Stage stage = (Stage) books.getScene().getWindow(); // Get the current stage
+            Stage stage = (Stage) books.getScene().getWindow();
             Scene scene = new Scene(newRoot);
-            stage.setScene(scene); // Set the new scene
-            stage.show(); // Show the new scene
+            stage.setScene(scene);
+            stage.show();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
+    /**
+     * Logs out the current user and navigates to the login screen.
+     */
     @FXML
     public void onLogoutButtonClick(){
         try {
-            // Load the login screen FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_login.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/warehouse/layout/screen_login.fxml")
+            );
             Parent loginScreen = loader.load();
-
-            // Get the current stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-
-            // Set the new scene to the login screen
             Scene loginScene = new Scene(loginScreen);
             currentStage.setScene(loginScene);
-
-            // Show the new scene
             currentStage.show();
-
             System.out.println("User logged out and redirected to the login screen.");
         } catch (IOException e) {
             System.err.println("Error occurred while navigating to the login screen: " + e.getMessage());
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 
+    /**
+     * Navigates to the cart screen.
+     *
+     * @param mouseEvent The event triggered by clicking the cart button.
+     */
     public void handleGoToCart(MouseEvent mouseEvent) {
         try {
-            // Load the next screen FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/warehouse/layout/screen_cart.fxml"));
             Parent newRoot = loader.load();
-
-            // Get the current stage and set the new scene
-            Stage stage = (Stage) books.getScene().getWindow(); // Get the current stage
+            Stage stage = (Stage) books.getScene().getWindow();
             Scene scene = new Scene(newRoot);
-            stage.setScene(scene); // Set the new scene
-            stage.show(); // Show the new scene
+            stage.setScene(scene);
+            stage.show();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Error occurred while performing IO operation", e);
         }
     }
 }
